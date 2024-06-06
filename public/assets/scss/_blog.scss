@@ -1,0 +1,229 @@
+/*--
+    10. Blog Area Css
+----------------------------------*/
+.single-latest-blog,.single-blog-wrap {
+    padding-left: 15px;
+    padding-right: 15px;
+    & .latest-blog-image {
+        position: relative;
+        overflow: hidden;
+        border-radius: 3px;
+        & a {
+            overflow: hidden;
+            display: block;
+            & img {
+                transform: scale(1.0);
+            }
+        }
+        &:hover {
+            & a {
+                & img {
+                    transform: scale(1.05);
+                }
+            }
+        }
+    }
+    & .latest-blog-content {
+        margin-top: 20px;
+        & .post-meta {
+            & li {
+                display: inline-block;
+                position: relative;
+                padding-left: 20px;
+                margin-left: 10px;
+                margin-bottom: 10px;
+                &::after {
+                    position: absolute;
+                    left: 0;
+                    content: "/";
+                    top: 0;
+                }
+                &:first-child {
+                    padding-left: 0px;
+                    margin-left: 0px;
+                   &::after {
+                        display: none;
+                    } 
+                }
+                & a{
+                    color: $theme-color;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+        
+        & .blog-read-more {
+            a {
+                margin-top: 5px;
+                background: $theme-color;
+                color: #fff;
+                display: inline-block;
+                font-size: 14px;
+                font-weight: 400;
+                letter-spacing: -0.025em;
+                height: 40px;
+                line-height: 40px;
+                border-radius: 3px;
+                padding: 0 35px;
+                text-align: center;
+                transition: ease-in-out 0.3s;
+                &:hover {
+                    background: #5D8801;
+                }
+            }
+        }
+    }
+}
+.post-wrapper {
+    & .latest-blog-list {
+        padding: 20px 0;
+        padding-top: 20px;
+        border-bottom: 1px solid #ebebeb;
+        & .post-meta {
+            & li {
+                display: inline-block;
+                position: relative;
+                padding-left: 20px;
+                margin-left: 10px;
+                margin-bottom: 10px;
+                &::after {
+                    position: absolute;
+                    left: 0;
+                    content: "/";
+                    top: 0;
+                }
+                &:first-child {
+                    padding-left: 0px;
+                    margin-left: 0px;
+                   &::after {
+                        display: none;
+                    } 
+                }
+                & a{
+                    color: $theme-color;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+        &:last-child {
+            padding-bottom: 0px;
+            border-bottom: none;
+        }
+    }
+}
+.box-wrap {
+    padding: 0 15px 30px 15px;
+}
+.single-agence {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+    & a {
+        overflow: hidden;
+        & img {
+            transform: scale(1.0);
+        }
+    }
+    &:hover {
+        & a {
+            & img {
+                transform: scale(1.06);
+            }
+        }
+    }
+}
+.agence-content {
+    display: flex;
+    align-items: center;
+    color: #777;
+    padding: 12px 0;
+    padding-top: 15px;
+    border-bottom: 1px solid #ebebeb;
+    &:last-child {
+        padding-bottom: 0px;
+        border-bottom: none;
+    }
+    & p {
+        & i {
+            color: $theme-color;
+            font-size: 20px;
+        }
+        margin-bottom: 0;
+        &.dec {
+            padding-left: 10px;
+        }
+        & strong {
+            font-weight: 400;
+            color: #333333;
+        }
+    }
+}
+.single-blog-wrap {
+    overflow: hidden;
+    & .col-5-custom {
+        float: left;
+        padding-right: 25px;
+        max-width: 45%;
+        @media #{$large-mobile}{
+            max-width: 100%;
+        }
+    }
+    & .col-7-custom {
+        float: left;
+        max-width: 55%;
+        & .latest-blog-content {
+            margin-top: 0;
+            }
+        @media #{$large-mobile}{
+            max-width: 100%;
+        }
+    }
+
+    & .latest-blog-content {
+        @media #{$large-mobile}{
+           margin-top: 20px;
+        }
+        & .post-meta {
+            color: #777;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ebebeb;
+            margin-bottom: 15px;
+        }
+    }
+    
+}
+.post-category-tag {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    & li {
+        display: inline-block;
+        & a {
+            background: #fff;
+            border-radius: 5px;
+            display: block;
+            padding: 4px 10px;
+        } 
+    }
+}
+.meta-sharing {
+    border-top: 1px solid #ddd;
+    margin-top: 40px;
+}
+
+.blockquote-box {
+    background: #f6f6f6;
+    border: 1px solid #ebebeb;
+    border-left-color: rgb(235, 235, 235);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left: 5px solid #80bb01;
+    font-size: 1em;
+    font-style: italic;
+    margin: 40px 0 40px 40px;
+    padding: 30px 45px;
+}

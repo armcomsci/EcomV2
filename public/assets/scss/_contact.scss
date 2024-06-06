@@ -1,0 +1,75 @@
+/*--    
+    17. Contact Us Css
+-----------------------------*/
+.contact-us-box{
+    & .single-input {
+        margin-bottom: 20px;
+        & label {
+            display: block;
+            margin-bottom: 3px;
+        }
+        & input , textarea{
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        & textarea{
+            height: 150px;
+        }
+        
+        & .submit-button {
+            margin-top: 20px;
+            background: #80bb01;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: -0.025em;
+            height: 40px;
+            line-height: 40px;
+            padding: 0 35px;
+            text-transform: capitalize;
+            text-align: center;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            -webkit-transition: 0.3s ease;
+            -moz-transition: 0.3s ease;
+            -ms-transition: 0.3s ease;
+            -o-transition: 0.3s ease;
+            transition: 0.3s ease;
+        }
+        
+    }
+}
+.contact-info-text {
+    & ul {
+        & li {
+            border-bottom: 1px solid #ebebeb;
+            margin-bottom: 30px;
+            padding-bottom: 40px;
+            &:last-child {
+                border-bottom: none;
+                margin-bottom: 0px;
+                padding-bottom: 0;
+            }
+            
+            & .contact-title {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+                & i {
+                    font-size: 35px;
+                    margin-right: 10px;
+                }
+                & h4 {
+                    margin-bottom: 0;
+                }
+            }
+            
+            
+        }
+    }
+}

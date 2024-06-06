@@ -1,0 +1,160 @@
+/*--
+    08. Testimonial Css
+--------------------------------*/
+.testimonial-bg{
+    background: url(../images/bg/testimonial-bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.testimonial-wrap {
+    padding-top: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.quote-container {
+    margin: auto;
+    background: #fff;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    padding: 60px 30px 25px;
+    position: relative;
+    
+    & .quote-image {
+        display: inline-block;
+        height: 90px;
+        margin-right: 10px;
+        overflow: hidden;
+        vertical-align: middle;
+        width: 90px;
+        border: 7px solid #f6f5f1;
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+        position: absolute;
+        left: 20px;
+        top: -45px;
+    }
+    & .author {
+        & ul{
+            & li {
+                font-size: 0.9286em;
+                margin: 0 0 10px 0;
+                display: inline-block;
+                position: relative;
+                text-align: left;
+                vertical-align: middle;
+                padding-right: 10px;
+                margin-right: 10px;
+                &::after {
+                    position: absolute;
+                    left: -15px;
+                    top: 0;
+                    content: "/";
+                    height: 100%;
+                    width: 100%;
+                }
+                &:first-child {
+                    color: $theme-color;
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    &::after {
+                        display: none;
+                    }
+                }
+                &:last-child {
+                   padding-right: 0px;
+                    margin-right: 0px;
+                }
+            }
+        }
+    }
+    
+    & .testimonials-text {
+        
+        &::before {
+            content: "";
+            display: inline-block;
+            margin-right: 10px;
+            width: 23px;
+            height: 17px;
+            position: absolute;
+            top: 35px;
+            right: 5px;
+            background: url(../images/icon/quite.png) center center no-repeat;
+        }
+    }
+}
+.testimonial-slider .slick-dots {
+    text-align: center;
+    margin-top: 30px;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    & li {
+        display: inline-block;
+        margin: 0 4px;
+        
+        & button {
+            background: $theme-color-2;
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-size: 0;
+            line-height: 0;
+            display: block;
+            width: 8px;
+            height: 8px;
+            padding: 5px;
+            cursor: pointer;
+            color: transparent;
+            border: 0;
+            outline: none;
+            border-radius: 50%;
+        }
+        &.slick-active {
+            & button {
+                background: $theme-color;
+                width: 10px;
+                height: 10px;
+            }
+        }
+    }
+}
+
+.testimonial-wrap-two {
+    & .quote-container {
+        padding: 0;
+        & .quote-image {
+            margin-right: 0px;
+            position: inherit;
+            left: 0px;
+            top: 0px;
+        }
+        & .author {
+            margin-top: 25px;
+            h6 {
+                font-weight: 500;
+                text-transform: uppercase;
+                color: $theme-color;
+            }
+        }
+        & .testimonials-text{
+            position: relative;
+            margin-top: 70px;
+            &::before {
+                content: "";
+                display: inline-block;
+                margin-right: 10px;
+                width: 23px;
+                height: 17px;
+                position: absolute;
+                top: -60px;
+                right: 0;
+                left: 0;
+                margin: 0 auto;
+                background: url(../images/icon/quite.png) center center no-repeat;
+            }
+        }
+    }
+}

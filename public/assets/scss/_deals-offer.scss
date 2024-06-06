@@ -1,0 +1,81 @@
+/*--
+    14. Deals Offer Css
+--------------------------------*/
+.dealis-offer-bg {
+    background: url(../images/bg/dealis-offer-bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.deals-offer-title {
+    margin-top: 80px;
+    @media #{$desktop-device}{
+        
+    }
+    @media #{$large-mobile}{
+        margin-top: 0px;
+    }
+}
+.product-active-lg-4 {
+    & .slick-arrow {
+        position: absolute;
+        left: -140px;
+        top: 65%;
+        transform: translateY(-65%);
+        height: 35px;
+        line-height: 35px;
+        color: #242424;
+        background: #fff;
+        border: 1px solid #ebebeb;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+        padding: 0 20px;
+        cursor: pointer;
+        width: 70px;
+        
+        &.slick-arrow{
+            margin-left: -50px;
+        }
+        &.slick-next {
+            margin-left: 50px;
+        }
+        
+        
+        @media #{$desktop-device}{
+            left: -220px;
+            transform: translateY(-0%);
+             &.slick-arrow{
+                margin-left: -0px;
+            }
+            &.slick-next {
+                margin-left: 90px;
+            }
+        }
+        
+        @media #{$tablet-device}{
+            left: -220px;
+            transform: translateY(-0%);
+             &.slick-arrow{
+                margin-left: -0px;
+            }
+            &.slick-next {
+                margin-left: 90px;
+            }
+        }
+        
+        @media #{$large-mobile}{
+            left: 20px;
+            top: -30px;
+            transform: translateY(-0%);
+             &.slick-arrow{
+                margin-left: -0px;
+            }
+            &.slick-next {
+                margin-left: 90px;
+            }
+        }
+    }
+    @media #{$large-mobile}{
+        margin-top: 40px;
+    }
+}
