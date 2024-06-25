@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 function Get_header_category($id = null){
     $lang = session()->get('locale');
@@ -21,6 +22,27 @@ function Get_header_category($id = null){
     return $category;
 }
 
+function getAddr($type){
+    $address    = DB::table('91W2_firesale_addresses')
+                    ->where('created_by',Auth::id())
+                    ->where('91W2_firesale_addresses.status_used','Y');
+                    if($type == 'vat'){
+                        $address    = $address->where('vat_status','Y');
+                    }elseif($type == 'ship'){
+                        $address    = $address->whereNull('vat_status');
+                    }
+                    $address    = $address->get();
+    return $address;
+}
+
+function encode_pass($pass,$salt = null){
+    if($salt == ""){
+        $salt = substr(md5(uniqid(rand(), true)), 0, 6);
+    }
+    $password  = sha1($pass.$salt);
+    return $password;
+}
+
 function replaceLink($link){
-    return str_replace('/',' ',$link);
+    return str_replace('/','_',$link);
 }

@@ -483,7 +483,7 @@
                                             </ul>
                                         </div> --}}
                                         <div class="product-button-action">
-                                            <a href="#" class="add-to-cart">เพิ่มลงตะกร้า</a>
+                                            <a href="#" class="add-to-cart" data-code="{{ $productTab_1[0]->code }}">เพิ่มลงตะกร้า</a>
                                         </div>
                                     </div>
                                 </div>
@@ -510,7 +510,7 @@
                                                 </div>
                                                 <h6 class="product-name "><a href="{{ url('/ProductDetail/'.replaceLink($productTab_1[$i]->title)) }}" class="line-clamp">{{ $productTab_1[$i]->title }}</a></h6>
                                                 <div class="product-button-action">
-                                                    <a href="#" class="add-to-cart">เพิ่มลงตะกร้า</a>
+                                                    <a href="#" class="add-to-cart" data-code="{{ $productTab_1[$i]->code }}">เพิ่มลงตะกร้า</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -529,7 +529,7 @@
 </div>
 <!-- Product Tab 1 -->
 
- <!-- Product Tab 2 -->
+<!-- Product Tab 2 -->
 <div class="product-area section-ptb">
     <div class="container-ext">
         <div class="row">
@@ -587,7 +587,7 @@
                                             </ul>
                                         </div> --}}
                                         <div class="product-button-action">
-                                            <a href="#" class="add-to-cart">Select options</a>
+                                            <a href="#" class="add-to-cart" data-code="{{ $productTab_2[0]->code }}">เพิ่มลงตะกร้า</a>
                                         </div>
                                     </div>
                                 </div>
@@ -614,7 +614,7 @@
                                                     </div>
                                                     <h6 class="product-name "><a href="{{ url('/ProductDetail/'.replaceLink($productTab_2[$i]->title)) }}" class="line-clamp">{{ $productTab_2[$i]->title }}</a></h6>
                                                     <div class="product-button-action">
-                                                        <a href="#" class="add-to-cart">เพิ่มลงตะกร้า</a>
+                                                        <a href="#" class="add-to-cart" data-code="{{ $productTab_2[$i]->code }}">เพิ่มลงตะกร้า</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -687,7 +687,7 @@
                                             </ul>
                                         </div> --}}
                                         <div class="product-button-action">
-                                            <a href="#" class="add-to-cart">เพิ่มลงตะกร้า</a>
+                                            <a href="#" class="add-to-cart"  data-code="{{ $productTab_3[0]->code }}">เพิ่มลงตะกร้า</a>
                                         </div>
                                     </div>
                                 </div>
@@ -715,7 +715,7 @@
                                                 </div>
                                                 <h6 class="product-name "><a href="{{ url('/ProductDetail/'.replaceLink($productTab_3[$i]->title)) }}" class="line-clamp">{{ $productTab_3[$i]->title }}</a></h6>
                                                 <div class="product-button-action">
-                                                    <a href="#" class="add-to-cart">เพิ่มลงตะกร้า</a>
+                                                    <a href="#" class="add-to-cart"  data-code="{{ $productTab_3[$i]->code }}">เพิ่มลงตะกร้า</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -792,7 +792,7 @@
                                             </ul>
                                         </div> --}}
                                         <div class="product-button-action">
-                                            <a href="#" class="add-to-cart">Select options</a>
+                                            <a href="#" class="add-to-cart" data-code="{{ $productTab_4[0]->code }}">เพิ่มลงตะกร้า</a>
                                         </div>
                                     </div>
                                 </div>
@@ -819,7 +819,7 @@
                                                 </div>
                                                 <h6 class="product-name "><a href="{{ url('/ProductDetail/'.replaceLink($productTab_4[$i]->title)) }}" class="line-clamp">{{ $productTab_2[$i]->title }}</a></h6>
                                                 <div class="product-button-action">
-                                                    <a href="#" class="add-to-cart">เพิ่มลงตะกร้า</a>
+                                                    <a href="#" class="add-to-cart"  data-code="{{ $productTab_4[$i]->code }}">เพิ่มลงตะกร้า</a>
                                                 </div>
                                             </div>
                                         </div>

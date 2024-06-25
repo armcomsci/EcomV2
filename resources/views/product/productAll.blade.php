@@ -137,7 +137,7 @@
                                             </div>
                                             <h6 class="product-name"><a href="{{ url('/ProductDetail/'.replaceLink($item->title)) }}" title="{{ $item->title }}" class="line-clamp">{{ $item->title }}</a></h6>
                                             <div class="product-button-action">
-                                                <a href="#" class="add-to-cart">เพิ่มลงตะกร้า</a>
+                                                <a href="#" class="add-to-cart" data-code="{{ $item->code }}">เพิ่มลงตะกร้า</a>
                                             </div>
                                         </div>
                                     </div>
@@ -160,3 +160,4 @@
 </div>
 
 @endsection
+

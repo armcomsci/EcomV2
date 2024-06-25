@@ -1,16 +1,33 @@
 <header class="header">
     <!-- Header Top Start -->
     <div class="header-top-area d-none d-lg-block border-bm-gray">
-
+        @if (auth()->check())
+            @php
+                
+                if(auth()->user()->email != ''){
+                    $username = auth()->user()->email;
+                }else{
+                    $username = auth()->user()->username;
+                    if(strpos($username,' ') > 1 ){
+                        $exUser = explode(' ',$username);
+                        $username = $exUser[0];
+                    }
+                }
+                
+            @endphp
+        @endif
         <div class="container-ext">
             <div class="row">
                 <div class="offset-lg-6 col-lg-6">
                     <div class="top-info-wrap text-end">
                         <ul class="my-account-container">
-                            <li><a href="#">My account</a></li>
-                            <li><a href="#">Cart</a></li>
-                            <li><a href="#">Wishlist</a></li>
-                            <li><a href="#">Checkout</a></li>
+                            <li><a href="{{ url('/Checkout') }}">ตะกร้า</a></li>
+                            @if (auth()->check())
+                                <li><a href="{{ url('/Profile') }}">{{ $username }}</a></li>
+                                <li><a href="{{ url('/Logout') }}" onclick="Logout(event)">ออกจากระบบ</a></li>
+                            @else
+                            <li><a href="{{ url('/Login') }}">เข้าสู่ระบบ</a></li>
+                            @endif  
                         </ul>
                     </div>
                 </div>
@@ -31,7 +48,7 @@
                 </div>
                 <div class="col-xl-3 col-lg-9">
                     <div class="contact-call-wrap-top d-mt-30">
-                        <img src="assets/images/icon/img-headphone.png" alt="">
+                        <img src="{{ asset('assets/images/icon/img-headphone.png') }}" alt="">
                         <div class="footer-call">
                             <p>Call Center</p>
                             <p>ติดต่อเรา : <a  href="tel:02-033-7900">02-033-7900 กด 5</a></p>
@@ -79,49 +96,55 @@
                     <div class="right-blok-box text-white d-flex">
                         <div class="box-cart-wrap">
                             <div class="shopping-cart-wrap">
-                                <a href="#"><i class="icon-shopping-bag2"></i><span class="cart-total">2</span> <span class="cart-total-amunt">$260</span></a>
+                                @php
+                                    $Cart       =  session()->get('cart');
+                                    $qtySum     = [0];
+                                    $Sum        = [0];
+                                    if(session()->has("cart")){
+                                        foreach ($Cart as $key => $value) {
+                                            $qtySum[]   = $value['quantity'];
+                                            $Sum[]      = $value['product_price']*$value['quantity'];
+                                        }
+                                    }
+                                @endphp
+                                <a href="#"><i class="icon-shopping-bag2"></i><span class="cart-total">{{ array_sum($qtySum) }}</span> <span class="cart-total-amunt">{{ number_format(array_sum($Sum),2) }}</span></a>
                                 <ul class="mini-cart">
-                                    <li class="cart-item">
-                                        <div class="cart-image">
-                                            <a href="single-product.html"><img alt="" src="assets/images/product/product-01.jpg"></a>
-                                        </div>
-                                        <div class="cart-title">
-                                            <a href="single-product.html">
-                                                <h4>Product Name 01</h4>
-                                            </a>
-                                            <div class="quanti-price-wrap">
-                                                <span class="quantity">1 ×</span>
-                                                <div class="price-box"><span class="new-price">$130.00</span></div>
+                                    <div class="cart-checkout">
+                                        @if(session()->has("cart"))
+                                        @foreach ($Cart as $itemInCart)
+                                        @php
+                                            $url_path = "https://images.jtpackconnect.com/imageallproducts/".$itemInCart['product_code']."_F.jpg";
+                                        @endphp
+                                        <li class="cart-item ProductCode-{{ $itemInCart['product_code'] }}">
+                                            <div class="cart-image">
+                                                <a href="{{ url('/Checkout') }}"><img alt="" src="{{ $url_path }}"></a>
                                             </div>
-                                            <a class="remove_from_cart" href="#"><i class="icon-x"></i></a>
-                                        </div>
-                                    </li>
-                                    <li class="cart-item">
-                                        <div class="cart-image">
-                                            <a href="single-product.html"><img alt="" src="assets/images/product/product-02.jpg"></a>
-                                        </div>
-                                        <div class="cart-title">
-                                            <a href="single-product.html">
-                                                <h4>Product Name 03</h4>
-                                            </a>
-                                            <div class="quanti-price-wrap">
-                                                <span class="quantity">1 ×</span>
-                                                <div class="price-box"><span class="new-price">$130.00</span></div>
+                                            <div class="cart-title">
+                                                <a href="{{ url('/Checkout') }}">
+                                                    <h4 class="cart-title-width line-clamp">{{ $itemInCart['product_name'] }}</h4>
+                                                </a>
+                                                <div class="quanti-price-wrap">
+                                                    <span class="quantity">{{ $itemInCart['quantity'] }} ×</span>
+                                                    <div class="price-box"><span class="new-price">฿{{ $itemInCart['product_price'] }}</span></div>
+                                                </div>
+                                                <a class="remove_from_cart" data-code="{{ $itemInCart['product_code'] }}" href="#"  onclick="return false;" ><i class="icon-x"></i></a>
                                             </div>
-                                            <a class="remove_from_cart" href="#"><i class="icon-trash icons"></i></a>
-                                        </div>
-                                    </li>
+                                        </li>
+                                        @endforeach
+                                        @endif
+                                    </div>
                                     <li class="subtotal-box">
                                         <div class="subtotal-title">
-                                            <h3>Sub-Total :</h3><span>$ 260.99</span>
+                                            <h3>ยอดรวม :</h3><span>฿{{ number_format(array_sum($Sum),2) }}</span>
                                         </div>
                                     </li>
                                     <li class="mini-cart-btns">
                                         <div class="cart-btns">
-                                            <a href="cart.html">View cart</a>
-                                            <a href="checkout.html">Checkout</a>
+                                            <a href="#" class="clearOrder" onclick="return false;" >ลบรายการทั้งหมด</a>
+                                            <a href="{{ url('/Checkout') }}">สั่งซื้อสินค้า</a>
                                         </div>
                                     </li>
+                                  
                                 </ul>
                             </div>
                         </div>
@@ -190,55 +213,48 @@
                 <div class="col-lg-3 col-md-6 col-7">
                     <div class="right-blok-box text-white d-block d-lg-none d-flex">
                         <div class="shopping-cart-wrap">
-                            <a href="#"><i class="icon-shopping-bag2"></i><span class="cart-total">2</span> <span class="cart-total-amunt">$260</span></a>
+                            <a href="#"><i class="icon-shopping-bag2"></i><span class="cart-total">{{ array_sum($qtySum) }}</span> <span class="cart-total-amunt">{{ number_format(array_sum($Sum),2) }}</span></a>
                             <ul class="mini-cart">
+                                <div class="cart-checkout">
+                                @if(session()->has("cart"))
+                                @foreach ($Cart as $itemInCart)
+                                @php
+                                    $url_path = "https://images.jtpackconnect.com/imageallproducts/".$itemInCart['product_code']."_F.jpg";
+                                @endphp
                                 <li class="cart-item">
-                                    <div class="cart-image">
-                                        <a href="single-product.html"><img alt="" src="assets/images/product/product-01.jpg"></a>
+                                    <div class="cart-image ProductCode-{{ $itemInCart['product_code'] }}">
+                                        <a href="{{ url('/Checkout') }}"><img alt="" src="{{ $url_path }}"></a>
                                     </div>
                                     <div class="cart-title">
-                                        <a href="single-product.html">
-                                            <h4>Product Name 01</h4>
+                                        <a href="{{ url('/Checkout') }}">
+                                            <h4 class="cart-title-width line-clamp">{{ $itemInCart['product_name'] }}</h4>
                                         </a>
                                         <div class="quanti-price-wrap">
-                                            <span class="quantity">1 ×</span>
-                                            <div class="price-box"><span class="new-price">$130.00</span></div>
+                                            <span class="quantity">{{ $itemInCart['quantity'] }} ×</span>
+                                            <div class="price-box"><span class="new-price">฿{{ $itemInCart['product_price'] }}</span></div>
                                         </div>
-                                        <a class="remove_from_cart" href="#"><i class="icon-x"></i></a>
+                                        <a class="remove_from_cart" data-code="{{ $itemInCart['product_code'] }}" href="#"  onclick="return false;" ><i class="icon-x"></i></a>
                                     </div>
                                 </li>
-                                <li class="cart-item">
-                                    <div class="cart-image">
-                                        <a href="single-product.html"><img alt="" src="assets/images/product/product-02.jpg"></a>
-                                    </div>
-                                    <div class="cart-title">
-                                        <a href="single-product.html">
-                                            <h4>Product Name 03</h4>
-                                        </a>
-                                        <div class="quanti-price-wrap">
-                                            <span class="quantity">1 ×</span>
-                                            <div class="price-box"><span class="new-price">$130.00</span></div>
-                                        </div>
-                                        <a class="remove_from_cart" href="#"><i class="icon-trash icons"></i></a>
-                                    </div>
-                                </li>
+                                @endforeach
+                                @endif
                                 <li class="subtotal-box">
                                     <div class="subtotal-title">
-                                        <h3>Sub-Total :</h3><span>$ 260.99</span>
+                                        <h3>ยอดรวม :</h3><span>฿{{ number_format(array_sum($Sum),2) }}</span>
                                     </div>
                                 </li>
                                 <li class="mini-cart-btns">
                                     <div class="cart-btns">
-                                        <a href="cart.html">View cart</a>
-                                        <a href="checkout.html">Checkout</a>
+                                        <a href="#" class="clearOrder" onclick="return false;">ลบรายการทั้งหมด</a>
+                                        <a href="{{ url('/Checkout') }}">สั่งซื้อสินค้า</a>
                                     </div>
                                 </li>
+                                </div>
                             </ul>
                         </div>
-
                         <div class="mobile-menu-btn ">
                             <div class="off-canvas-btn">
-                                <a href="#"><img src="assets/images/icon/bg-menu.png" alt=""></a>
+                                <a href="#"><img src="{{ asset('assets/images/icon/bg-menu.png') }} " alt=""></a>
                             </div>
                         </div>
 
@@ -272,63 +288,12 @@
                     <!-- mobile menu navigation start -->
                     <nav>
                         <ul class="mobile-menu">
-                            <li class="menu-item-has-children"><a href="#">Home</a>
-                                <ul class="dropdown">
-                                    <li><a href="{{ url('/') }}">Home Page 1</a></li>
-                                    <li><a href="index-2.html">Home Page 2</a></li>
-                                    <li><a href="index-3.html">Home Page 3</a></li>
-                                    <li><a href="index-4.html">Home Page 4</a></li>
-                                    <li><a href="index-5.html">Home Page 5</a></li><li><a href="index-6.html">Home Page 6</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item-has-children"><a href="#">Shop</a>
-                                <ul class="megamenu dropdown">
-                                    <li class="mega-title has-children"><a href="#">Shop Layouts</a>
-                                        <ul class="dropdown">
-                                            <li><a href="shop.html">Shop Left Sidebar</a></li>
-                                            <li><a href="shop-right-sidebar.html">Shop Right Sidebar</a></li>
-                                            <li><a href="shop-list-left.html">Shop List Left Sidebar</a></li>
-                                            <li><a href="shop-list-right.html">Shop List Right Sidebar</a></li>
-                                            <li><a href="shop-fullwidth.html">Shop Full Width</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="mega-title has-children"><a href="#">Product Details</a>
-                                        <ul class="dropdown">
-                                            <li><a href="product-details.html">Single Product Details</a></li>
-                                            <li><a href="variable-product-details.html">Variable Product Details</a></li>
-                                            <li><a href="external-product-details.html">External Product Details</a></li>
-                                            <li><a href="gallery-product-details.html">Gallery Product Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="mega-title has-children"><a href="#">Shop Pages</a>
-                                        <ul class="dropdown">
-                                            <li><a href="error404.html">Error 404</a></li>
-                                            <li><a href="compare.html">Compare Page</a></li>
-                                            <li><a href="cart.html">Cart Page</a></li>
-                                            <li><a href="checkout.html">Checkout Page</a></li>
-                                            <li><a href="wishlist.html">Wish List Page</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="menu-item-has-children "><a href="#">Blog</a>
-                                <ul class="dropdown">
-                                    <li><a href="blog.html">Blog Left Sidebar</a></li>
-                                    <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                    <li><a href="blog-grid.html">Blog Grid Page</a></li>
-                                    <li><a href="blog-largeimage.html">Blog Large Image</a></li>
-                                    <li><a href="blog-details.html">Blog Details Page</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item-has-children "><a href="#">Pages</a>
-                                <ul class="dropdown">
-                                    <li><a href="frequently-questions.html">FAQ</a></li>
-                                    <li><a href="my-account.html">My Account</a></li>
-                                    <li><a href="login-register.html">login &amp; register</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="about-us.html">About Us</a></li>
-                            <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="{{ url('/') }}">หน้าหลัก</a></li>
+                            <li><a href="{{ url('/Product') }}">สินค้าทั้งหมด</a></li>
+                            <li><a href="{{ url('/OrderProcess') }}">วิธีสั่งซื้อ</a></li>
+                            <li><a href="{{ url('/') }}">เทรนด์ฮิต</a></li>
+                            <li><a href="{{ url('/Customization') }}">ออกแบบงานพิมพ์ LOGO</a></li>
+                            <li><a href="{{ url('/Contact') }}">ติดต่อเรา</a></li>
                         </ul>
                     </nav>
                     <!-- mobile menu navigation end -->
@@ -359,10 +324,13 @@
                     <div class="top-info-wrap text-start text-black">
                         <h5>My Account</h5>
                         <ul class="offcanvas-account-container">
-                            <li><a href="my-account.html">My account</a></li>
-                            <li><a href="cart.html">Cart</a></li>
-                            <li><a href="wishlist.html">Wishlist</a></li>
-                            <li><a href="checkout.html">Checkout</a></li>
+                            <li><a href="{{ url('/Checkout') }}">ตะกร้า</a></li>
+                            @if (auth()->check())
+                                <li><a href="{{ url('/Profile') }}">{{ $username }}</a></li>
+                                <li><a href="{{ url('/Logout') }}" onclick="Logout(event)">ออกจากระบบ</a></li>
+                            @else
+                            <li><a href="{{ url('/Login') }}">เข้าสู่ระบบ</a></li>
+                            @endif
                         </ul>
                     </div>
 

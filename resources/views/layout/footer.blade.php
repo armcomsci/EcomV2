@@ -8,7 +8,7 @@
                         <h6 class="title-widget">Contact Info</h6>
 
                         <div class="contact-call-wrap">
-                            <img src="assets/images/icon/img-headphone.png" alt="">
+                            <img src="{{ asset('assets/images/icon/img-headphone.png') }}" alt="">
                             <div class="footer-call">
                                 <p>Hotline Free 24/24:</p>
                                 <h6>(+800) 123 456 789</h6>
@@ -119,7 +119,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="copy-right-image">
-                        <img src="assets/images/icon/img-payment.png" alt="">
+                        <img src="{{ asset('assets/images/icon/img-payment.png') }}" alt="">
 
                     </div>
                 </div>
