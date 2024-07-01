@@ -29,6 +29,9 @@ Route::get('/Checkout','CheckoutController@index');
 Route::get('/GetDistricts/{id}','AutoProviceController@GetDistricts');
 Route::get('/GetSubDistrict/{id}','AutoProviceController@GetSubDistricts');
 
+Route::post('/SaveShipAddr','AddressController@saveShip');
+Route::post('/SaveBillAddr','AddressController@saveBill');
+
 Route::get('/Login','LoginController@login');
 Route::get('/Logout','LoginController@logout');
 Route::post('/Checklogin','LoginController@checkLogin');

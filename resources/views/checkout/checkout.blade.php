@@ -145,177 +145,146 @@
     </div>
 </div>
 
-<div class="modal fade" id="FormAddress" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">เพิ่มที่อยู่จัดส่ง</h5>
-        </div>
-        <div class="modal-body">
-            <form id="" method="post">
-                <div class="row">
-                    <div class="col-lg-12 col-sm-12">
-                        <p class="single-form-row">
-                            <label>ที่อยู่</label>
-                            <input name="con_subject" type="text">
-                        </p>
-                    </div>
-                    <div class="col-lg-12 col-sm-12">
-                        <div class="single-form-row">
-                            <label>จังหวัด</label>
-                            <div class="">
-                                <select class="Province">
-                                    <option></option>
-                                    @foreach ($province as $pv)
-                                        <option data-value="{{ $pv->PROVINCE_ID }}" value="{{ $pv->PROVINCE_NAME }}" >{{ $pv->PROVINCE_NAME }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-sm-12 mt-2">
-                        <div class="single-form-row">
-                            <label>เขต/อำเภอ</label>
-                            <div class="">
-                                <select class="District">
-                                    <option></option>
-                                    
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-sm-12 mt-2">
-                        <div class="single-form-row">
-                            <label>ตำบล/แขวง</label>
-                            <div class="">
-                                <select class="SubDistrict">
-                                    <option></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-sm-12 mt-2">
-                        <p class="single-form-row">
-                            <label>รหัสไปรณีย์</label>
-                            <input name="con_subject" type="text">
-                        </p>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn-addr btn-success">เพิ่มที่อยู่ใหม่</button>
-          <button type="button" class="btn-addr btn-danger"  data-bs-dismiss="modal">ยกเลิก</button>
-        </div>
-      </div>
-    </div>
-</div>
+@if(count($getAddrShip) > 0)
+    @include('checkout.modal-add-address-ship')
+@endif
 
+@include('checkout.modal-add-address-bill')
 
-<div class="modal fade" id="FormBillAddress" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">เพิ่มข้อมูลใบกำกับภาษี</h5>
-        </div>
-        <div class="modal-body">
-            <form id="" method="post">
-                <div class="row">
-                    <div class="col-lg-12 col-sm-12">
-                        <p class="single-form-row">
-                            <label>เลขประจำตัวผู้เสียภาษี</label>
-                            <input name="con_subject" type="text">
-                        </p>
-                    </div>
-                    <div class="col-lg-12 col-sm-12">
-                        <p class="single-form-row">
-                            <label>ชื่อ-นามสกุล/ชื่อบริษัท</label>
-                            <input name="con_subject" type="text">
-                        </p>
-                    </div>
-                    <div class="col-lg-12 col-sm-12">
-                        <p class="single-form-row">
-                            <label>ที่อยู่</label>
-                            <input name="con_subject" type="text">
-                        </p>
-                    </div>
-                    <div class="col-lg-12 col-sm-12">
-                        <div class="single-form-row">
-                            <label>จังหวัด</label>
-                            <div>
-                                <select class="Province">
-                                    <option></option>
-                                    @foreach ($province as $pv)
-                                        <option data-value="{{ $pv->PROVINCE_ID }}" value="{{ $pv->PROVINCE_NAME }}" >{{ $pv->PROVINCE_NAME }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-sm-12 mt-2">
-                        <div class="single-form-row">
-                            <label>เขต/อำเภอ</label>
-                            <div>
-                                <select class="District">
-                                    <option></option>
-                                    
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-sm-12 mt-2">
-                        <div class="single-form-row">
-                            <label>ตำบล/แขวง</label>
-                            <div>
-                                <select class="SubDistrict">
-                                    <option></option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-sm-12 mt-2">
-                        <p class="single-form-row">
-                            <label>รหัสไปรณีย์</label>
-                            <input name="con_subject" type="text">
-                        </p>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn-addr btn-success">เพิ่มที่อยู่ใหม่</button>
-          <button type="button" class="btn-addr btn-danger"  data-bs-dismiss="modal">ยกเลิก</button>
-        </div>
-      </div>
-    </div>
-</div>
 @endsection
 
 @section('script')
+@if(!session()->has('cart'))
+    @php
+    $url = url('/');
+    @endphp
+    <script>
+        var url = '{{ $url }}';   
+        Swal.fire({
+            title: 'ไม่พบสินค้าในตะกร้า',
+            text: 'กรุณาเลือกสินค้า',
+            icon: 'warning',
+            padding: '2em'
+        }).then((result) => {
+            window.location.href = url+"/Product"
+        });
+        
+    </script>
+@endif
 <script src="https://unpkg.com/slim-select@latest/dist/slimselect.min.js"></script>
+<script src="{{ asset('assets/js/jquery.mask.js') }}"></script>
 <script>
     
-
-    new SlimSelect({
-        select: ".Province"
-    })
-
     $(document).on('click','.next-step, .prev-step',function(){
         var $activeTab          = $('.tab-pane.active');
-
+        var FormCheckOut        = [];
         if ( $(this).hasClass('next-step') ){
 
-            var nextTab = $activeTab.next('.tab-pane').attr('id');
+            var nextTab         = $activeTab.next('.tab-pane').attr('id');
+            var required_status = true;
             if(nextTab == "checkout-menu2"){
-                $('.process-row').addClass('process-row-2');
-                $("#step-2").prop('src',url+'/assets/img_custom/ชำระเงิน.jpg');
+
+                let stepForm_1      = $('#Checkout-Step-1').find('.require-step-1').length;
+               
+                if(stepForm_1 > 0){
+                    let required        = $('#Checkout-Step-1 .require-step-1');
+                    $.each(required, function(key,val) {             
+                        let input = $(this);
+                        if(input.val() == ""){
+                            let textAlert = input.prev().text();
+                            Swal.fire({
+                                title: 'กรุณาระบุข้อมูล',
+                                text: 'ระบุ'+textAlert,
+                                icon: 'warning',
+                                padding: '2em'
+                            }).then((result) => {
+                                input.focus();
+                            });
+                            required_status = false;
+                            return false;
+                        }    
+                    }); 
+                }
+
+                let check_bill = $('#chekout-bill-addr');
+                if(check_bill.is(':checked')){
+                    if($("select[name='bill_addr']").val() == null){
+                        Swal.fire({
+                            title: 'กรุณาระบุข้อมูล',
+                            text: 'ระบุที่อยู่ใบกำกับภาษี',
+                            icon: 'warning',
+                            padding: '2em'
+                        }).then((result) => {
+                            input.focus();
+                        });
+                        required_status = false;
+                        return false;
+                    }
+                }
+
+                let TypeShip = $('.TypeShip');
+                if(!TypeShip.hasClass('active_type_ship')){
+                    Swal.fire({
+                        title: 'กรุณาระบุข้อมูล',
+                        text: 'เลือกช่องทางจัดส่ง',
+                        icon: 'warning',
+                        padding: '2em'
+                    })
+                    required_status = false;
+                }
+                
+                if(required_status){
+                    FormCheckOut.push({
+                        key : 'FormAddress',
+                        value : $('#Checkout-Step-1').serializeArray()
+                    },{
+                        key : 'FormTypeSend',
+                        value : $('.active_type_ship').data('id')
+                    });
+                    if(check_bill.is(':checked')){
+                        FormCheckOut.push({
+                            key : 'FormAddressBill',
+                            value : $('#form-bill-addr').serializeArray()
+                        })
+                    }
+
+                    $('.process-row').addClass('process-row-2');
+                    $("#step-2").prop('src',url+'/assets/img_custom/ชำระเงิน.jpg');
+
+                    $('.tab-pane').removeClass('active show');
+                    $('#'+nextTab).addClass('active show');
+
+                }
+       
             }
             if(nextTab == "checkout-menu3"){
-                $('.process-row').addClass('process-row-3');
-                $("#step-3").prop('src',url+'/assets/img_custom/cf.jpg');
+                let TypePayment = $('.TypePayment');
+                if(!TypePayment.hasClass('active_type_pay')){
+                    Swal.fire({
+                        title: 'กรุณาระบุข้อมูล',
+                        text: 'เลือกช่องชำระเงิน',
+                        icon: 'warning',
+                        padding: '2em'
+                    })
+                    required_status = false;
+                }
+
+                if(required_status){ 
+                    FormCheckOut.push({
+                        key : 'FormPayment',
+                        value : $('.active_type_pay').find('img').data('payname')
+                    });
+
+                    $('.process-row').addClass('process-row-3');
+                    $("#step-3").prop('src',url+'/assets/img_custom/cf.jpg');
+
+                    $('.tab-pane').removeClass('active show');
+                    $('#'+nextTab).addClass('active show');
+
+                    console.log(FormCheckOut);
+                }
             }
-            $('.tab-pane').removeClass('active show');
-            $('#'+nextTab).addClass('active show');
+
             // alert(nextTab);
             
          } else {   
@@ -335,7 +304,176 @@
     });
 
     $(document).ready(function () {
-      
+
+        $("input[name='ship_tel']").mask('0000000000');
+
+        $("input[name='ship_postcode'], input[name='AddShip_postcode']").mask('00000');
+
+        $(".Province").change(function (e) { 
+            e.preventDefault();
+            let form = $(this).closest('form').attr('id');
+            let id = $(this).find(':selected').data('value');
+
+            $.ajax({
+                type: "get",
+                url: url+"/GetDistricts/"+id,
+                dataType: "json",
+                beforeSend: function() {
+                   $('#'+form+' .District').empty();
+                   $('#'+form+' .District').prop("disabled", true);
+
+                   $('#'+form+' .SubDistrict').empty();
+                   $('#'+form+' .SubDistrict').prop("disabled", true);
+
+                },
+                success: function (response) {
+                    $('#'+form+' .District').prop("disabled", false);
+                    $('.SubDistrict').prop("disabled", false);
+
+                    let option2 = "<option></option>";
+                    $.each(response, function (index, value) {
+                        option2 += "<option data-value='"+value.AMPHUR_ID+"' value='"+value.AMPHUR_NAME.trim()+"' >"+value.AMPHUR_NAME+"</option>";
+                    });
+                    $('#'+form+' .District').append(option2);
+                }
+            });
+        });
+
+        $('.District').change(function (e) {
+            let id      = $(this).find(':selected').data('value');
+            let form    = $(this).closest('form').attr('id');
+
+            e.preventDefault();
+            if(id != ""){
+                $.ajax({
+                    type: "get",
+                    url: url+"/GetSubDistrict/"+id,
+                    dataType: "json",
+                    beforeSend: function() {
+                         $('#'+form+' .SubDistrict').empty();
+                         $('#'+form+' .SubDistrict').prop("disabled", true);
+                    },
+                    success: function (response) {
+                        $('#'+form+' .District').prop("disabled", false);
+                        $('#'+form+' .SubDistrict').prop("disabled", false);
+
+                        let option2 = "<option></option>";
+                        $.each(response, function (index, value) {
+                            option2 += "<option data-value='"+value.DISTRICT_ID+"' value='"+value.DISTRICT_NAME.trim()+"' >"+value.DISTRICT_NAME+"</option>";
+                        });
+                        $('#'+form+' .SubDistrict').append(option2);
+                    }
+                });
+            }
+        });
+        
+        $('#Form-add-ship').submit(function (e) { 
+            e.preventDefault();
+            let required        = $('#Form-add-ship .require-add-ship');
+            $.each(required, function(key,val) {             
+                let input = $(this);
+                if(input.val() == "" || input.val() == null){
+                    let textAlert = input.prev().text();
+                    Swal.fire({
+                        title: 'กรุณาระบุข้อมูล',
+                        text: 'ระบุ'+textAlert,
+                        icon: 'warning',
+                        padding: '2em'
+                    }).then((result) => {
+                        input.focus();
+                    });
+                    required_status = false;
+                    return false;
+                }    
+            });
+            if(required){
+                $.ajax({
+                    type: "post",
+                    url: url+"/SaveShipAddr",
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+                        $('#Form-add-ship .btn-addr').prop("disabled", true);
+                    },
+                    success: function (response) {
+                        $('#Form-add-ship .btn-addr').prop("disabled", false);
+                        if(response['status'] == 'success'){
+                            $('#FormAddress').modal('hide');
+                            Swal.fire({
+                                title: 'บันทึกข้อมูลสำเร็จ',
+                                text: '',
+                                icon: 'success',
+                                padding: '2em'
+                            }).then((result) => {
+                                let html = "<option value='"+response['data'].id+"'>"+response['data'].text+"</option>"
+                                $("select[name='Address_ship']").append(html);
+                                $("select[name='Address_ship']").val(response['data'].id);
+                            });
+                        }else{
+                            Swal.fire({
+                                title: 'เกิดข้อผิดพลาดในการบันทึก',
+                                text: '',
+                                icon: 'success',
+                                padding: '2em'
+                            })
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#Form-add-bill').submit(function (e) { 
+            e.preventDefault();
+            let required        = $('#Form-add-bill .require-add-bill');
+            $.each(required, function(key,val) {             
+                let input = $(this);
+                if(input.val() == "" || input.val() == null){
+                    let textAlert = input.prev().text();
+                    Swal.fire({
+                        title: 'กรุณาระบุข้อมูล',
+                        text: 'ระบุ'+textAlert,
+                        icon: 'warning',
+                        padding: '2em'
+                    }).then((result) => {
+                        input.focus();
+                    });
+                    required_status = false;
+                    return false;
+                }    
+            });
+            if(required){
+                $.ajax({
+                    type: "post",
+                    url: url+"/SaveBillAddr",
+                    data: $(this).serialize(),
+                    beforeSend: function() {
+                        $('#Form-add-bill .btn-addr').prop("disabled", true);
+                    },
+                    success: function (response) {
+                        $('#Form-add-bill .btn-addr').prop("disabled", false);
+                        if(response['status'] == 'success'){
+                            $('#FormBillAddress').modal('hide');
+                            Swal.fire({
+                                title: 'บันทึกข้อมูลสำเร็จ',
+                                text: '',
+                                icon: 'success',
+                                padding: '2em'
+                            }).then((result) => {
+                                let html = "<option value='"+response['data'].id+"'>"+response['data'].text+"</option>"
+                                $("select[name='bill_addr']").append(html);
+                                $("select[name='bill_addr']").val(response['data'].id);
+                            });
+                        }else{
+                            Swal.fire({
+                                title: 'เกิดข้อผิดพลาดในการบันทึก',
+                                text: '',
+                                icon: 'success',
+                                padding: '2em'
+                            })
+                        }
+                    }
+                });
+            }
+        });
 
         $('.Address_Add').click(function (e) { 
             e.preventDefault();
@@ -345,70 +483,6 @@
                 $('#FormAddress').modal('show');
             }else if(type == 'bill'){
                 $('#FormBillAddress').modal('show');
-            }
-        });
-
-        $(".Province").change(function (e) { 
-            e.preventDefault();
-            let form = $(this).parent('form');
-
-            let id = $(this).find(':selected').data('value');
-            $.ajax({
-                type: "get",
-                url: url+"/GetDistricts/"+id,
-                dataType: "json",
-                beforeSend: function() {
-                    $('.District').empty();
-                    $('.District').prop("disabled", true);
-
-                    $('.SubDistrict').empty();
-                    $('.SubDistrict').prop("disabled", true);
-                },
-                success: function (response) {
-                    $('.District').prop("disabled", false);
-                    $('.SubDistrict').prop("disabled", false);
-
-                    let option2 = "<option></option>";
-                    $.each(response, function (index, value) {
-                        option2 += "<option data-value='"+value.AMPHUR_ID+"' value='"+value.AMPHUR_NAME.trim()+"' >"+value.AMPHUR_NAME+"</option>";
-                    });
-                    $('#Checkout-Step-1 .District').append(option2);
-                    new SlimSelect({
-                        select: "#Checkout-Step-1 .District"
-                    })
-                }
-            });
-        });
-
-        $('.District').change(function (e) {
-            let id = $(this).find(':selected').data('value');
-            let form = $(this).parent('form');
-           
-            e.preventDefault();
-            if(id != ""){
-                $.ajax({
-                    type: "get",
-                    url: url+"/GetSubDistrict/"+id,
-                    dataType: "json",
-                    beforeSend: function() {
-                        $('.SubDistrict').empty();
-                        $('.SubDistrict').prop("disabled", true);
-                    },
-                    success: function (response) {
-
-                        $('.District').prop("disabled", false);
-                        $('.SubDistrict').prop("disabled", false);
-
-                        let option2 = "<option></option>";
-                        $.each(response, function (index, value) {
-                            option2 += "<option data-value='"+value.DISTRICT_ID+"' value='"+value.DISTRICT_NAME.trim()+"' >"+value.DISTRICT_NAME+"</option>";
-                        });
-                        $('#Checkout-Step-1 .SubDistrict').append(option2);
-                        new SlimSelect({
-                            select: "#Checkout-Step-1 .SubDistrict"
-                        })
-                    }
-                });
             }
         });
 
@@ -434,6 +508,7 @@
         });
 
     });
+    
 
 </script>
 @endsection

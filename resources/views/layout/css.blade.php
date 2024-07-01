@@ -31,3 +31,5 @@
         border: 1px solid #cf002d;
     }
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -7,70 +7,64 @@
                 <div class="col-lg-6 col-sm-12">
                     <p class="single-form-row">
                         <label>ชื่อ</label>
-                        <input name="con_name" class="require" type="text">
+                        <input name="ship_name" class="require-step-1" type="text">
                     </p>
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <p class="single-form-row">
                         <label>นามสกุล</label>
-                        <input name="con_name" class="require" type="text">
+                        <input name="ship_lastname" class="require-step-1" type="text">
                     </p>
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <p class="single-form-row">
                         <label>Email</label>
-                        <input name="con_email" class="require" type="email" value="{{ $username }}" {{ $readonly }} >
+                        <input name="email" class="require-step-1" type="email" value="{{ $username }}" {{ $readonly }} >
                     </p>
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <p class="single-form-row">
                         <label>เบอร์ติดต่อ</label>
-                        <input name="con_email" class="require" type="email">
+                        <input name="ship_tel" class="require-step-1" >
                     </p>
                 </div>
                 <div class="col-lg-12 col-sm-12">
                     <p class="single-form-row">
                         <label>ที่อยู่</label>
-                        <input name="con_subject" class="require" type="text">
+                        <input name="ship_addr" class="require-step-1" type="text">
                     </p>
                 </div>
                 <div class="col-lg-6 col-sm-12 mt-2">
                     <div class="single-input">
                         <label>จังหวัด</label>
-                        <div class="">
-                            <select name="Province" class="Province require">
-                                <option></option>
-                                @foreach ($province as $pv)
-                                    <option data-value="{{ $pv->PROVINCE_ID }}" value="{{ $pv->PROVINCE_NAME }}" >{{ $pv->PROVINCE_NAME }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <select name="ship_province" class="form-control require-step-1 Province" >
+                            <option></option>
+                            @foreach ($province as $pv)
+                                <option data-value="{{ $pv->PROVINCE_ID }}" value="{{ $pv->PROVINCE_NAME }}" >{{ $pv->PROVINCE_NAME }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 mt-2">
                     <div class="single-input">
                         <label>เขต/อำเภอ</label>
-                        <div class="">
-                            <select name="District" class="District form-control require">
-                                <option></option>
-                            </select>
-                        </div>
+                        <select name="ship_district" class="form-control require-step-1 District">
+                            <option></option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 mt-3">
                     <div class="single-input">
                         <label>ตำบล/แขวง</label>
-                        <div class="">
-                            <select name="SubDistrict" class="SubDistrict require form-control">
-                                <option></option>
-                            </select>
-                        </div>
+                        <select name="ship_subDistrict " class="require-step-1 form-control SubDistrict" >
+                            <option></option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 mt-3">
                     <p class="single-form-row">
                         <label>รหัสไปรณีย์</label>
-                        <input name="con_subject" class="require" type="text">
+                        <input name="ship_postcode" class="require-step-1" type="text">
                     </p>
                 </div>
                 @else 
@@ -84,13 +78,11 @@
                                 <button type="button" class="btn-addr btn-success Address_Add" data-typeship="ship">เพิ่มที่อยู่จัดส่ง</button>
                             </div>
                         </div>
-                        <div class="nice-select wide">
-                            <select>
-                                @foreach ($getAddrShip as $addr)
-                                    <option value="{{ $addr->id }}">{{ $addr->address1." ".$addr->city." ".$addr->county." ".$addr->postcode }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <select class="form-control" name="Address_ship">
+                            @foreach ($getAddrShip as $addr)
+                                <option value="{{ $addr->id }}">{{ $addr->address1." ".$addr->subDistrict." ".$addr->city." ".$addr->county." ".$addr->postcode }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 @endif
@@ -114,28 +106,47 @@
                                 <button type="button" class="btn-addr btn-success Address_Add" data-typeship="bill">เพิ่มข้อมูลใบกำกับภาษี</button>
                             </div>
                         </div>
-                        <div class="nice-select wide">
-                            <select>
-                                @foreach ($getAddrBill as $addrBill)
-                                    <option value="{{ $addrBill->id }}">{{ $addrBill->company." ".$addrBill->address1." ".$addrBill->city." ".$addrBill->county." ".$addrBill->postcode }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <select name="bill_addr" class="form-control">
+                            @foreach ($getAddrBill as $addrBill)
+                                <option value="{{ $addrBill->id }}">{{ $addrBill->company." ".$addrBill->address1." ".$addrBill->city." ".$addrBill->county." ".$addrBill->postcode }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>
         </form>
         <form id="form-type-ship" method="post">
             <h3 class="shoping-checkboxt-title">ประเภทการจัดส่ง</h3>
+            <p>***คลิกเพื่อเลือกรูปแบบการจัดส่ง***</p>
             <div class="row" id="">
-                <div class="col-lg-6 col-sm-12 TypeShip">
-                    <img src="{{ asset('assets/img_custom/ส่งแบบปกติ.jpg') }}" alt="">
-                    <div class="text-center">ส่งแบบปกติ</div>
+                @php
+                    $time     = floatval(date('G.i'));
+                @endphp
+                @foreach ($DeliverTypeSend as $item)
+                @php
+                    $TimeStart  = floatval(str_replace(':','.',$item->TimeStart));
+                    $TimeEnd    = floatval(str_replace(':','.',$item->TimeEnd));
+                    $TxSend     = "";
+                    $Color      = "";
+                    $TypeShip   = "TypeShip";
+
+                    if($TimeStart != 0 && $TimeEnd != 0){
+                        if($time < $TimeStart || $time > $TimeEnd){
+                            $diliver_send   = "";
+                            $TypeShip       = "";
+                            $Color          = "color:red";
+                            $TxSend         = "สามารถส่งด่วนได้ในช่วงเวลา ".$item->TimeStart."-".$item->TimeEnd;
+                        }
+                    }
+                @endphp
+                <div class="col-lg-6 col-sm-12 {{ $TypeShip }}" data-id="{{ $item->id }}">
+                    <img src="{{ $item->img }}"" alt="">
+                    <div class="text-center">
+                        {{ $item->title }}
+                        <p style="{{ $Color }}">{{ $TxSend }}</p>
+                    </div>
                 </div>
-                <div class="col-lg-6 col-sm-12 TypeShip">
-                    <img src="{{ asset('assets/img_custom/ส่งแบบด่วน.jpg') }}" alt="">
-                    <div class="text-center">ส่งแบบด่วน</div>
-                </div>
+                @endforeach
             </div>
         </form>
     </div>

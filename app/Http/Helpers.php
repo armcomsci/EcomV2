@@ -31,6 +31,7 @@ function getAddr($type){
                     }elseif($type == 'ship'){
                         $address    = $address->whereNull('vat_status');
                     }
+                    $address    = $address->orderByDesc('id');
                     $address    = $address->get();
     return $address;
 }
