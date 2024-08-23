@@ -182,8 +182,7 @@
                        
                     }
                 });
-            });
-            
+            });   
         });
         
         $(document).on('click','.remove_from_cart',function(e){

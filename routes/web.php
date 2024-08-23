@@ -23,9 +23,30 @@ Route::get('/Product/{cate}','ProductController@productCate');
 Route::get('/Product/{cate}/{cate_sub}','ProductController@productCate');
 Route::get('/ProductDetail/{detail}','ProductController@productDetail');
 Route::post('/AddCart','ProductController@addToCart');
+Route::post('/ClearItem','ProductController@clearItem');
 Route::post('/ClearCart','ProductController@clearCart');
 
+Route::get('/Profile','ProfileController@profile');
+Route::post('/ProfileStatus','ProfileController@profileStatus');
+Route::post('/ProfileOrderItem','ProfileController@orderItem');
+
 Route::get('/Checkout','CheckoutController@index');
+Route::post('/DeliverPrice','CheckoutController@checkPrice');
+Route::post('/UseCoupon','CheckoutController@useCode');
+
+Route::post('/SendOtpSMS','SendOtpController@sendOtpSMS');
+Route::post('/CheckSMS_Otp','SendOtpController@validate_otp');
+Route::post('/SendOtpEmail','SendOtpController@sendOtpEmail');
+Route::post('/CheckEmail_Otp','SendOtpController@confirmEmail');
+
+Route::post('/SaveOrder','OrderController@saveOrder');
+Route::post('/ReOrder','OrderController@reOrder');
+Route::post('/paymentOrder','OrderController@orderWaitPayment');
+Route::any('/CreditCardGB','OrderController@creditGB');
+Route::post('/CheckQrPayment','OrderController@checkpay_qr');
+Route::any('/GB/Callback/BG','OrderController@logGB');
+Route::any('/GB/Callback','OrderController@callbackGB');
+
 Route::get('/GetDistricts/{id}','AutoProviceController@GetDistricts');
 Route::get('/GetSubDistrict/{id}','AutoProviceController@GetSubDistricts');
 

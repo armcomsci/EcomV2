@@ -48,7 +48,7 @@ class LoginController extends Controller
         }
 
         if(session()->has('cart')){
-            $data['url'] = "/CheckOut";
+            $data['url'] = "/Checkout";
         }else{
             $data['url'] = "/";
         }

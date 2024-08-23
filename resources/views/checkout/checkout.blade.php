@@ -12,6 +12,7 @@
 @endif
 
 @section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
     .process-step .btn:focus{outline:none}
     .process{display:table;width:100%;position:relative;margin-bottom: 20px;}
@@ -41,7 +42,7 @@
         -webkit-transition: all 0.3s ease 0s;
         transition: all 0.3s ease 0s;
     }
-    .btn-step{
+    .btn-step,.btn-confirm{
         border: 1px solid #626262;
         line-height: 20px;
         padding: 10px 30px;
@@ -54,6 +55,35 @@
         z-index: 1;
         -webkit-transition: all 0.3s ease 0s;
         transition: all 0.3s ease 0s;
+    }
+    .btn-modal{
+        border: 1px solid #626262;
+        line-height: 20px;
+        padding: 4px 20px;
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: #ffffff;
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+        -webkit-transition: all 0.3s ease 0s;
+        transition: all 0.3s ease 0s;
+    }
+    .confirm_order_email,#re_otp{
+        background: cornflowerblue;
+    }
+    #confirm_otp_email,#confirm_otp{
+        background: darkgreen;
+    }
+    #cancel_otp_email,#cancel_otp{
+        background: brown;
+    }
+    .confirm-otp,.confirm_order{
+        background-color: cadetblue;
+    }
+    .confirm-email{
+        background-color: indianred;
     }
     .next-step{
         background-color: #198754;
@@ -68,6 +98,9 @@
     }
     .text-right{
         text-align: right;
+    }
+    .deleteItem,.AddItem,.deleteQty{
+        cursor: pointer;
     }
 </style>
 <link href="https://unpkg.com/slim-select@latest/dist/slimselect.css" rel="stylesheet"></link>
@@ -100,13 +133,13 @@
     $getAddrShip    = getAddr('ship');
     $getAddrBill    = getAddr('vat');
 
-    $getAddrShip    = [];
-    $getAddrBill    = [];
+    // $getAddrShip    = [];
+    // $getAddrBill    = [];
     // dd($getAddrShip);
 @endphp
 <div class="main-content-wrap contact-wrap">
     <div class="contact-form-area section-ptb">
-        <div class="container-ext">
+        <div class="container-ext" id="content-checkout">
             <div class="process">
                 <div class="process-row nav nav-tabs">
                     <div class="process-step">
@@ -151,6 +184,44 @@
 
 @include('checkout.modal-add-address-bill')
 
+@include('checkout.modal-otp-sms')
+
+@include('checkout.modal-otp-email')
+
+<div id="product_outstock" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered" >
+        <!-- Modal content-->
+        <div class="modal-content" >
+            <div class="modal-body" style="height: 100%;">
+                <h4 class="modal-title">รายการที่คงเหลือไม่เพียงพอ</h4>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="p_out_stock">
+                        <thead>
+                            <tr>
+                                <td class="text-center">ลำดับที่</td>
+                                <td class="text-center">รูปภาพ</td>
+                                <td class="text-left">ชื่อสินค้า</td>
+                                <td class="text-center">จำนวน</td>
+                                <td class="text-right">ราคาต่อหน่วย</td>
+                                <td class="text-right">รวม</td>
+                                <td class="text-center">ลบรายการ</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">บันทึกรายการ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('script')
@@ -173,11 +244,15 @@
 @endif
 <script src="https://unpkg.com/slim-select@latest/dist/slimselect.min.js"></script>
 <script src="{{ asset('assets/js/jquery.mask.js') }}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+<script src="{{ asset('assets/js/GBPrimePay.js') }}"></script>
 <script>
-    
+   
+    var FormCheckOut        = {};
+
     $(document).on('click','.next-step, .prev-step',function(){
         var $activeTab          = $('.tab-pane.active');
-        var FormCheckOut        = [];
+       
         if ( $(this).hasClass('next-step') ){
 
             var nextTab         = $activeTab.next('.tab-pane').attr('id');
@@ -234,20 +309,12 @@
                 }
                 
                 if(required_status){
-                    FormCheckOut.push({
-                        key : 'FormAddress',
-                        value : $('#Checkout-Step-1').serializeArray()
-                    },{
-                        key : 'FormTypeSend',
-                        value : $('.active_type_ship').data('id')
-                    });
-                    if(check_bill.is(':checked')){
-                        FormCheckOut.push({
-                            key : 'FormAddressBill',
-                            value : $('#form-bill-addr').serializeArray()
-                        })
-                    }
+                    FormCheckOut.FormAddress  = $('#Checkout-Step-1').serializeArray();
+                    FormCheckOut.FormTypeSend  = $('.active_type_ship').data('id');  
 
+                    if(check_bill.is(':checked')){
+                        FormCheckOut.FormAddressBill  = $('#form-bill-addr').serializeArray();
+                    }
                     $('.process-row').addClass('process-row-2');
                     $("#step-2").prop('src',url+'/assets/img_custom/ชำระเงิน.jpg');
 
@@ -257,6 +324,7 @@
                 }
        
             }
+
             if(nextTab == "checkout-menu3"){
                 let TypePayment = $('.TypePayment');
                 if(!TypePayment.hasClass('active_type_pay')){
@@ -268,12 +336,35 @@
                     })
                     required_status = false;
                 }
-
+                
                 if(required_status){ 
-                    FormCheckOut.push({
-                        key : 'FormPayment',
-                        value : $('.active_type_pay').find('img').data('payname')
-                    });
+                    FormCheckOut.FormPayment  = $('.active_type_pay').find('img').data('payname');
+                   
+                    $('#Send_Ship, #Send_Bill, #Send_Type_Deliver, #Send_Type_Payment').empty();
+
+                    let sendShip = $("select[name='Address_ship']").find(':selected').text();
+                    $('#Send_Ship').append(sendShip);
+                    
+                    let check_bill = $('#chekout-bill-addr');
+                    if(check_bill.is(':checked')){
+                        let sendBill = $("select[name='bill_addr']").find(':selected').text();
+                        $('#Send_Bill').append(sendBill);
+                    }else{
+                        $('#Send_Bill').append('ไม่ต้องการใบกำกับภาษี');
+                    }
+
+                    let ActiveShip = $('.active_type_ship').data('id');
+                    let textShip   = '';
+                    if(ActiveShip == 1){
+                        textShip = 'ส่งแบบปกติ'
+                    }else if(ActiveShip == 2){
+                        textShip = 'ส่งแบบด่วน'
+                    }
+                    $('#Send_Type_Deliver').append(textShip);
+                    
+                    let ActivePayment = $('.active_type_pay').find('img').data('payname');
+                    $('#Send_Type_Payment').append(ActivePayment);
+
 
                     $('.process-row').addClass('process-row-3');
                     $("#step-3").prop('src',url+'/assets/img_custom/cf.jpg');
@@ -281,7 +372,6 @@
                     $('.tab-pane').removeClass('active show');
                     $('#'+nextTab).addClass('active show');
 
-                    console.log(FormCheckOut);
                 }
             }
 
@@ -303,212 +393,98 @@
         }
     });
 
-    $(document).ready(function () {
-
-        $("input[name='ship_tel']").mask('0000000000');
-
-        $("input[name='ship_postcode'], input[name='AddShip_postcode']").mask('00000');
-
-        $(".Province").change(function (e) { 
-            e.preventDefault();
-            let form = $(this).closest('form').attr('id');
-            let id = $(this).find(':selected').data('value');
-
-            $.ajax({
-                type: "get",
-                url: url+"/GetDistricts/"+id,
-                dataType: "json",
-                beforeSend: function() {
-                   $('#'+form+' .District').empty();
-                   $('#'+form+' .District').prop("disabled", true);
-
-                   $('#'+form+' .SubDistrict').empty();
-                   $('#'+form+' .SubDistrict').prop("disabled", true);
-
-                },
-                success: function (response) {
-                    $('#'+form+' .District').prop("disabled", false);
-                    $('.SubDistrict').prop("disabled", false);
-
-                    let option2 = "<option></option>";
-                    $.each(response, function (index, value) {
-                        option2 += "<option data-value='"+value.AMPHUR_ID+"' value='"+value.AMPHUR_NAME.trim()+"' >"+value.AMPHUR_NAME+"</option>";
-                    });
-                    $('#'+form+' .District').append(option2);
-                }
-            });
-        });
-
-        $('.District').change(function (e) {
-            let id      = $(this).find(':selected').data('value');
-            let form    = $(this).closest('form').attr('id');
-
-            e.preventDefault();
-            if(id != ""){
-                $.ajax({
-                    type: "get",
-                    url: url+"/GetSubDistrict/"+id,
-                    dataType: "json",
-                    beforeSend: function() {
-                         $('#'+form+' .SubDistrict').empty();
-                         $('#'+form+' .SubDistrict').prop("disabled", true);
-                    },
-                    success: function (response) {
-                        $('#'+form+' .District').prop("disabled", false);
-                        $('#'+form+' .SubDistrict').prop("disabled", false);
-
-                        let option2 = "<option></option>";
-                        $.each(response, function (index, value) {
-                            option2 += "<option data-value='"+value.DISTRICT_ID+"' value='"+value.DISTRICT_NAME.trim()+"' >"+value.DISTRICT_NAME+"</option>";
-                        });
-                        $('#'+form+' .SubDistrict').append(option2);
-                    }
-                });
-            }
-        });
-        
-        $('#Form-add-ship').submit(function (e) { 
-            e.preventDefault();
-            let required        = $('#Form-add-ship .require-add-ship');
-            $.each(required, function(key,val) {             
-                let input = $(this);
-                if(input.val() == "" || input.val() == null){
-                    let textAlert = input.prev().text();
-                    Swal.fire({
-                        title: 'กรุณาระบุข้อมูล',
-                        text: 'ระบุ'+textAlert,
-                        icon: 'warning',
-                        padding: '2em'
-                    }).then((result) => {
-                        input.focus();
-                    });
-                    required_status = false;
-                    return false;
-                }    
-            });
-            if(required){
+    $(document).on('click','.deleteItem',function(e){
+        e.preventDefault();
+        let code        = $(this).data('code');
+        let txtName     = $(this).parent().prev().text();
+        let btnDelete   =  $(this);
+        Swal.fire({
+            title: 'ต้องการลบสินค้าออกจากตะกร้า ?',
+            text: txtName,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'ยืนยัน',
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
                 $.ajax({
                     type: "post",
-                    url: url+"/SaveShipAddr",
-                    data: $(this).serialize(),
-                    beforeSend: function() {
-                        $('#Form-add-ship .btn-addr').prop("disabled", true);
-                    },
+                    url: url+"/ClearItem",
+                    data: {'code':code},
+                    // dataType: "dataType",
                     success: function (response) {
-                        $('#Form-add-ship .btn-addr').prop("disabled", false);
-                        if(response['status'] == 'success'){
-                            $('#FormAddress').modal('hide');
+                        if(response == "success"){
                             Swal.fire({
-                                title: 'บันทึกข้อมูลสำเร็จ',
-                                text: '',
+                                title:'ลบสินค้าสำเร็จ !',
+                                text: "",
                                 icon: 'success',
-                                padding: '2em'
-                            }).then((result) => {
-                                let html = "<option value='"+response['data'].id+"'>"+response['data'].text+"</option>"
-                                $("select[name='Address_ship']").append(html);
-                                $("select[name='Address_ship']").val(response['data'].id);
+                            }).then(function(){
+                                btnDelete.parent().parent().remove();
+                                $('.ProductCode-'+code+',#Product_stock_'+code).remove();
+
+                                sumPriceOrder();
+
+                                let lastStep_Product = $('#lastStep_Product tbody tr').length;
+                                if(lastStep_Product == 0){
+                                    Swal.fire({
+                                        title: 'ไม่พบสินค้าในตะกร้า',
+                                        text: 'กรุณาเลือกสินค้า',
+                                        icon: 'warning',
+                                        padding: '2em'
+                                    }).then((result) => {
+                                        window.location.href = url+"/Product"
+                                    });
+                                }
                             });
                         }else{
                             Swal.fire({
-                                title: 'เกิดข้อผิดพลาดในการบันทึก',
-                                text: '',
-                                icon: 'success',
-                                padding: '2em'
-                            })
-                        }
-                    }
-                });
-            }
-        });
-
-        $('#Form-add-bill').submit(function (e) { 
-            e.preventDefault();
-            let required        = $('#Form-add-bill .require-add-bill');
-            $.each(required, function(key,val) {             
-                let input = $(this);
-                if(input.val() == "" || input.val() == null){
-                    let textAlert = input.prev().text();
-                    Swal.fire({
-                        title: 'กรุณาระบุข้อมูล',
-                        text: 'ระบุ'+textAlert,
-                        icon: 'warning',
-                        padding: '2em'
-                    }).then((result) => {
-                        input.focus();
-                    });
-                    required_status = false;
-                    return false;
-                }    
-            });
-            if(required){
-                $.ajax({
-                    type: "post",
-                    url: url+"/SaveBillAddr",
-                    data: $(this).serialize(),
-                    beforeSend: function() {
-                        $('#Form-add-bill .btn-addr').prop("disabled", true);
-                    },
-                    success: function (response) {
-                        $('#Form-add-bill .btn-addr').prop("disabled", false);
-                        if(response['status'] == 'success'){
-                            $('#FormBillAddress').modal('hide');
-                            Swal.fire({
-                                title: 'บันทึกข้อมูลสำเร็จ',
-                                text: '',
-                                icon: 'success',
-                                padding: '2em'
-                            }).then((result) => {
-                                let html = "<option value='"+response['data'].id+"'>"+response['data'].text+"</option>"
-                                $("select[name='bill_addr']").append(html);
-                                $("select[name='bill_addr']").val(response['data'].id);
+                                title:'เกิดข้อผิดพลาด !',
+                                text: "ไม่สามารถลบสินค้าได้",
+                                icon: 'warning',
                             });
-                        }else{
-                            Swal.fire({
-                                title: 'เกิดข้อผิดพลาดในการบันทึก',
-                                text: '',
-                                icon: 'success',
-                                padding: '2em'
-                            })
                         }
                     }
-                });
+                }); 
             }
         });
-
-        $('.Address_Add').click(function (e) { 
-            e.preventDefault();
-            let type = $(this).data('typeship');
-
-            if(type == 'ship'){
-                $('#FormAddress').modal('show');
-            }else if(type == 'bill'){
-                $('#FormBillAddress').modal('show');
-            }
-        });
-
-        $('.TypeShip').click(function (e) { 
-            e.preventDefault();
-            $('.TypeShip').removeClass('active_type_ship');
-            $(this).addClass('active_type_ship');
-        });
-
-        $('.TypePayment').click(function (e) { 
-            e.preventDefault();
-            $('.TypePayment').removeClass('active_type_pay');
-            $(this).addClass('active_type_pay');
-        });
-
-        $('#chekout-bill-addr').change(function (e) { 
-            e.preventDefault();
-            if($(this).is(':checked')){
-                $('#form-bill-addr').fadeIn(500)
-            }else{
-                $('#form-bill-addr').fadeOut(500)
-            }
-        });
-
     });
-    
+
+    $(document).on('blur',"input[name='ProductQty'], .quantity-stock",function(e){
+        let val = numeral($(this).val()).value();
+        if(val == 0){
+            $('.deleteItem').click();
+        }
+        let Item = $(this);
+        let code = $(this).parent().parent().data('code');
+
+        QtyCart(Item,code);
+    });
+
+    $(document).on('click','.AddItem',function(e){
+        let Item = $(this).prev();
+        let val  = Item.val();
+        let code = $(this).parent().parent().data('code');
+        val = numeral(val).value();
+        val++;
+        Item.val(val);
+        
+        QtyCart(Item,code);
+    });
+
+    $(document).on('click','.deleteQty',function(e){
+        let Item    = $(this).next();
+        let val     = Item.val();
+        let code    = $(this).parent().parent().data('code');
+        val = numeral(val).value();
+        val--;
+        Item.val(val,code);
+
+        QtyCart(Item,code);
+    });
 
 </script>
+<script src="{{ asset('assets/js/fnCheckOut.js') }}" ></script>
+<script src="{{ asset('assets/js/checkout.js') }}" ></script>
 @endsection

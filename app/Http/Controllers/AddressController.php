@@ -67,7 +67,7 @@ class AddressController extends ProfileController
 
             $res['status']       = 'success';
             $res['data']['id']   = $lastId;
-            $res['data']['text'] = $req->company." ".$req->AddShip_addr." ".$req->AddShip_subDistrict." ".$req->AddShip_district." ".$req->AddShip_province." ".$req->AddShip_postcode;
+            $res['data']['text'] = $req->AddBill_company." ".$req->AddBill_addr." ".$req->AddBill_subDistrict." ".$req->AddBill_district." ".$req->AddBill_province." ".$req->AddBill_postcode;
 
         } catch (\Throwable $th) {
             $res['status']  = 'error';

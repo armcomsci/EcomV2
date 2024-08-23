@@ -78,16 +78,28 @@
                                 <button type="button" class="btn-addr btn-success Address_Add" data-typeship="ship">เพิ่มที่อยู่จัดส่ง</button>
                             </div>
                         </div>
-                        <select class="form-control" name="Address_ship">
+                        <select class="form-control addr_Old" name="Address_ship">
+                            @php
+                                $i = 0;
+                            @endphp
                             @foreach ($getAddrShip as $addr)
-                                <option value="{{ $addr->id }}">{{ $addr->address1." ".$addr->subDistrict." ".$addr->city." ".$addr->county." ".$addr->postcode }}</option>
+                                @php
+                                    $selected = '';
+                                    if($i = 0){
+                                        $selected = "selected";
+                                    }
+                                @endphp
+                                <option value="{{ $addr->id }}" {{ $selected }} >{{ $addr->address1." ".$addr->subDistrict." ".$addr->city." ".$addr->county." ".$addr->postcode }}</option>
+                                @php
+                                    $i++;
+                                @endphp
                             @endforeach
                         </select>
                     </div>
                 </div>
                 @endif
                 <div class="col-lg-6 col-sm-12">
-                    <label><input type="checkbox" id="chekout-bill-addr"> ต้องการใบกำภาษี</label>
+                    <label><input type="checkbox" id="chekout-bill-addr" name="use_vat" value="Y"> ต้องการใบกำภาษี</label>
                 </div>
             </div>
         </form>
@@ -107,8 +119,20 @@
                             </div>
                         </div>
                         <select name="bill_addr" class="form-control">
+                            @php
+                                $i = 0;
+                            @endphp
                             @foreach ($getAddrBill as $addrBill)
-                                <option value="{{ $addrBill->id }}">{{ $addrBill->company." ".$addrBill->address1." ".$addrBill->city." ".$addrBill->county." ".$addrBill->postcode }}</option>
+                                @php
+                                    $selected = '';
+                                    if($i = 0){
+                                        $selected = "selected";
+                                    }
+                                @endphp
+                                <option value="{{ $addrBill->id }}" {{ $selected }} >{{ $addrBill->company." ".$addrBill->address1." ".$addrBill->city." ".$addrBill->county." ".$addrBill->postcode }}</option>
+                                @php
+                                    $i++;
+                                @endphp
                             @endforeach
                         </select>
                     </div>

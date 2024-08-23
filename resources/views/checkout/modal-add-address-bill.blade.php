@@ -4,8 +4,8 @@
         <div class="modal-header">
           <h5 class="modal-title">เพิ่มข้อมูลใบกำกับภาษี</h5>
         </div>
-        <div class="modal-body">
-            <form id="Form-add-bill" method="post">
+        <form id="Form-add-bill" method="post">
+            <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-12 col-sm-12">
                         <p class="single-form-row">
@@ -66,12 +66,12 @@
                         </p>
                     </div>
                 </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn-addr btn-success">เพิ่มที่อยู่ใหม่</button>
-          <button type="button" class="btn-addr btn-danger"  data-bs-dismiss="modal">ยกเลิก</button>
-        </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn-addr btn-success">เพิ่มที่อยู่ใหม่</button>
+                <button type="button" class="btn-addr btn-danger"  data-bs-dismiss="modal">ยกเลิก</button>
+            </div>
+        </form>
       </div>
     </div>
 </div>

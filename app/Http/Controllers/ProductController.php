@@ -91,8 +91,9 @@ class ProductController extends Controller
         $stock  = DB::table('91W2_firesale_products')->where('code',$code)->first();
 
         if($stock->stock <= 0 || $stock->stock < $req->qty){
-            $resp['status']     =  '01';
-            $resp['txt']        =  "OutStock"; 
+            $resp['status']     =   '01';
+            $resp['txt']        =   "OutStock"; 
+            $resp['Stock']      =   $stock->stock;
             return $resp;
         }
 
@@ -109,13 +110,14 @@ class ProductController extends Controller
             if (array_key_exists($code, $oldCart)) {
                 $qty = $oldCart[$code]['quantity'];
                 if(isset($req->qty)){
-                   $qty = $qty+$req->qty;
+                   $qty = $req->qty;
                 }else{
                     $qty++;
                 }
                 if( $stock->stock < $qty){
-                    $resp['status']     =  '01';
-                    $resp['txt']        =  "OutStock"; 
+                    $resp['status']     =   '01';
+                    $resp['txt']        =   "OutStock"; 
+                    $resp['Stock']      =   $stock->stock;
                     return $resp;
                 }
                 session()->put("cart.$code.quantity", $qty);
@@ -131,6 +133,7 @@ class ProductController extends Controller
                 $resp['txt']        =  "OutStock"; 
                 return $resp;
             }
+            $cartdata['product_id']         = $product->id;
             $cartdata['product_name']       = $product->title;
             $cartdata['slug']               = $product->slug;
             $cartdata['product_code']       = $product->code;  
@@ -159,6 +162,17 @@ class ProductController extends Controller
       
         return $resp;
 
+    }
+
+    public function clearItem(Request $req){
+        $code = $req->code;
+        try {
+            session()->forget("cart.$code");
+            return 'success';
+        } catch (\Throwable $th) {
+            $res['status']  = 'error';
+            return $res;
+        }
     }
 
     public function clearCart(Request $req){
