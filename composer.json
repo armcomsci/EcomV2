@@ -14,7 +14,8 @@
         "guzzlehttp/guzzle": "^7.8",
         "laravel/framework": "^7.0",
         "laravel/socialite": "^5.14",
-        "laravel/tinker": "^2.0"
+        "laravel/tinker": "^2.0",
+        "socialiteproviders/line": "^4.1"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

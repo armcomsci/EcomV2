@@ -181,7 +181,7 @@
 </div>
 
  <!-- main-content-wrap start -->
- <div class="main-content-wrap section-ptb lagin-and-register-page">
+<div class="main-content-wrap section-ptb lagin-and-register-page">
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col-sm-12">
@@ -205,7 +205,7 @@
                                         <div class="login-toggle-btn">
                                             <input type="checkbox">
                                             <label>จดจำฉันในระบบ</label>
-                                            <a href="#">ลืมรหัสผ่าน ?</a>
+                                            <a href="{{ url('/ForgetUser') }}">ลืมรหัสผ่าน ?</a>
                                         </div>
                                         <div class="button-box">
                                             <button class="login-btn btn" type="submit"><span>เข้าสู่ระบบ</span></button>
@@ -225,9 +225,9 @@
                         </a>
                     </div>
                     <div class="login-box login-form-container">
-                        <a href="#" class="social-button" id="facebook-connect"> <span>เข้าสู่ระบบโดย Facebook</span></a>
-                        <a href="{{ url('/google/login') }}" class="social-button" id="google-connect"> <span>เข้าสู่ระบบโดย Google</span></a>
-                        <a href="#" class="social-button" id="line-connect"> <span>เข้าสู่ระบบโดย Line</span></a>
+                        <a href="{{ url('login/facebook') }}" class="social-button" id="facebook-connect"> <span>เข้าสู่ระบบโดย Facebook</span></a>
+                        <a href="{{ url('login/google') }}" class="social-button" id="google-connect"> <span>เข้าสู่ระบบโดย Google</span></a>
+                        <a href="{{ url('login/line') }}" class="social-button" id="line-connect"> <span>เข้าสู่ระบบโดย Line</span></a>
                     </div>
                 </div>
             </div>

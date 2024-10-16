@@ -5,6 +5,87 @@
     .single-add-to-cart{
         max-width: 550px;
     }
+    .quantity-container {
+        display: inline-flex;
+        align-items: center;
+        background-color: #8CC63F; /* สีเขียว */
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .quantity-btn {
+        background-color: #8CC63F; /* สีเขียว */
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        width: 30px;
+        text-align: center;
+    }
+
+    #quantity {
+        width: 70px;
+        text-align: center;
+        border: none;
+        font-size: 18px;
+        padding: 5px;
+        background-color: white;
+    }
+
+    .order-summary {
+        width: 80%;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        font-family: sans-serif;
+    }
+
+    .order-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        font-size: 16px;
+    }
+
+    hr {
+        border: none;
+        border-top: 1px solid #ddd;
+        margin: 10px 0;
+    }
+
+    .total {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .order-button {
+        background-color: #ff1493;
+        color: white;
+        border: none;
+        padding: 15px;
+        width: 48%;
+        text-align: center;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+    .color-box {
+        display: inline-block;
+        padding: 15px 30px;
+        border: 2px solid #8CC63F; /* ขอบสีเขียว */
+        border-radius: 8px;
+        font-size: 18px;
+        color: #000000; /* สีตัวอักษรดำ */
+        text-align: center;
+        font-family: sans-serif;
+        cursor: pointer;
+    }
+    .order-button:hover {
+        background-color: #ff69b4;
+    }
 </style>
 @endsection
 
@@ -66,35 +147,59 @@
                 <div class="product-details-view-content">
                     <div class="product-info">
                         <h3>{{ $product->title }}</h3>
-                       
                         <div class="price-box">
                             <span class="new-price">฿{{ number_format($product->price) }}</span>
                             <span class="old-price">฿{{ number_format($product->rrp) }}</span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p>
-
-                        <div class="single-add-to-cart">
-                                <form action="#" class="cart-quantity d-flex">
-                                    <div class="quantity">
-                                        <div class="cart-plus-minus">
-                                            <input type="number" class="input-text" name="quantity" value="1" title="Qty">
-                                        </div>
-                                    </div>
-                                    <button class="add-to-cart-siggle cart-plus-minus" data-code="{{ $product->code }}" type="button" data-cart="add">เพิ่มลงตะกร้า</button>
-                                    <button class="add-to-cart-now" type="button" data-code="{{ $product->code }}" data-cart="now">ซื้อเลย</button>
-                                </form>
-                        </div>
                         <ul class="stock-cont mt-3">
-                            <li class="product-sku">รหัสสินค้า: <span>{{ $product->code }}</span></li>
-                            <li class="product-stock-status">หมวด: <a href="{{ url('/Product/'.$titleCate->CateTitle) }}">{{ $titleCate->CateTitle }}</a>,<a href="{{ url('/Product/'.$titleCate->CateTitle.'/'.$product->Category_title) }}">{{ $product->Category_title }}</a></li>
+                            <li class="product-sku">
+                                <h5>รหัสสินค้า: <span>{{ $product->code }}</span></h5>
+                            </li>
+                            <li class="product-stock-status">
+                                <h5>หมวด: 
+                                    <a href="{{ url('/Product/'.$titleCate->CateTitle) }}">{{ $titleCate->CateTitle }}</a>,
+                                    <a href="{{ url('/Product/'.$titleCate->CateTitle.'/'.$product->Category_title) }}">{{ $product->Category_title }}</a>
+                                </h5>
+                            </li>
                         </ul>
-                        <div class="share-product-socail-area">
-                            <p>Share this product</p>
-                            <ul class="single-product-share">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                            </ul>
+                        @if ($productSpec->ColorAppearanceTexture != "N/A")
+                        <div class="color-box mt-3 mb-3"> 
+                            {{ $productSpec->ColorAppearanceTexture }}
+                        </div>
+                        @endif
+                        <h3>จำนวน</h3>
+                        <div class="quantity-container">
+                            <button class="quantity-btn" id="minus"><i class="fa fa-minus" aria-hidden="true"></i></button>
+                            <input type="text" id="quantity" name="quantity"  value="1" readonly title="Qty">
+                            <button class="quantity-btn" id="plus"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+                        {{-- <div class="single-add-to-cart mt-3">
+                            <form action="#" class="cart-quantity d-flex">
+                                <div class="quantity">
+                                    <div class="cart-plus-minus">
+                                        <input type="number" class="input-text" name="quantity" value="1" title="Qty">
+                                    </div>
+                                </div>
+                                <button class="add-to-cart-siggle cart-plus-minus" data-code="{{ $product->code }}" type="button" data-cart="add">เพิ่มลงตะกร้า</button>
+                                <button class="add-to-cart-now" type="button" data-code="{{ $product->code }}" data-cart="now">ซื้อเลย</button>
+                            </form>
+                        </div> --}}
+                        <div class="order-summary mt-3">
+                            <div class="order-row">
+                                <span>จำนวน</span>
+                                <span>0 ชิ้น</span>
+                            </div>
+                            <div class="order-row">
+                                <span>ราคา</span>
+                                <span>0 บาท/ชิ้น</span>
+                            </div>
+                            <hr>
+                            <div class="order-row total">
+                                <span>ราคาสุทธิ</span>
+                                <span>{{ number_format($product->price) }} บาท</span>
+                            </div>
+                            <button class="order-button add-siggle cart-plus-minus" data-code="{{ $product->code }}" type="button" data-cart="add">เพิ่มลงตะกร้า</button>
+                            <button class="order-button add-now" type="button" data-code="{{ $product->code }}" data-cart="now">ซื้อเลย</button>
                         </div>
                     </div>
                 </div>
@@ -107,7 +212,7 @@
                     <div class="product-details-tab">
                         <ul role="tablist" class="nav">
                             <li class="active" role="presentation">
-                                <a data-bs-toggle="tab" role="tab" href="#description" class="active">Description</a>
+                                <a data-bs-toggle="tab" role="tab" href="#description" class="active">รายละเอียดสินค้า</a>
                             </li>
                         </ul>
                     </div>
@@ -118,11 +223,57 @@
                         <div class="product_tab_content" id="description" role="tabpanel">
                             <div class="product_description_wrap  mt-30">
                                 <div class="product_desc mb-30">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero vulputate rutrum. Morbi ornare lectus quis justo gravida semper. Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla.</p>
-
-                                    <p>Pellentesque aliquet, sem eget laoreet ultrices, ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempor, lorem et placerat vestibulum, metus nisi posuere nisl, in accumsan elit odio quis mi. Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget.</p>
+                                    <h4>วัสดุ</h4>
+                                    <h5>{{  $productSpec->RawMaterialName  }}</h5>
                                 </div>
+                                <div class="product_desc mb-30">
+                                    <h4>ขนาดสินค้า</h4>
+                                    <h5>ขนาด : {{  convertInchToCm($productSpec->GW_width)." x ".convertInchToCm($productSpec->GW_length)." x ".convertInchToCm($productSpec->GW_Heigth)   }}CM</h5>
+                                </div>
+                                <div class="product_desc mb-30">
+                                    <h4>ขนาดบรรจุ 1 กล่อง</h4>
+                                    {{ $productSpec->packsizname }}
+                                </div>
+                                {{-- <div class="product_desc mb-30">
+                                    <h4>ข้อแนะนำการใช้งาน</h4>
+                                    <h5>{{  $productSpec->ProductFeatures  }}</h5>
+                                </div>
+                                <div class="product_desc mb-30">
+                                    <h4>อายุการใช้งาน</h4>
+                                    <h5>{{  $productSpec->ShelfLife  }}</h5>
+                                </div> --}}
+                            </div>
+                        </div>
+                        <!-- End Single Content -->           
+                    </div>
+                </div>
+                
+            </div>
+        </div>
 
+        <div class="product-description-area section-pt mt-3">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="product-details-tab">
+                        <ul role="tablist" class="nav">
+                            <li class="active" role="presentation">
+                                <a data-bs-toggle="tab" role="tab" href="#description" class="active">คุณสมบัติสินค้า</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="product_details_tab_content ">
+                        <!-- Start Single Content -->
+                        <div class="product_tab_content" id="description" role="tabpanel">
+                            <div class="product_description_wrap  mt-30">
+                                <div class="product_desc mb-30">
+                                    @if($productSpec->UseMicroWave == "N")
+                                        <h5>ไม่สามารถเข้าไมโครเวฟได้</h5>
+                                    @elseif($productSpec->UseMicroWave == "Y") 
+                                        <h5>สามารถเข้าไมโครเวฟได้</h5>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                         <!-- End Single Content -->           
@@ -180,7 +331,10 @@
 <script>
     $("input[name='quantity']").mask('00');
     $(document).ready(function () {
-        $('.add-to-cart-siggle, .add-to-cart-now').click(function (e) { 
+        var min = 1;
+        var max = 99;   
+
+        $('.add-siggle, .add-now').click(function (e) { 
             e.preventDefault();
             let code        = $(this).data('code');
             let quantity    = $("input[name='quantity']").val();
@@ -249,6 +403,20 @@
                     }
                 }
             });
+        });
+
+        $('#plus').click(function() {
+            var currentVal = parseInt($('#quantity').val());
+            if (currentVal < max) {
+                $('#quantity').val(currentVal + 1);
+            }
+        });
+
+        $('#minus').click(function() {
+            var currentVal = parseInt($('#quantity').val());
+            if (currentVal > min) {
+                $('#quantity').val(currentVal - 1);
+            }
         });
     });
 </script>

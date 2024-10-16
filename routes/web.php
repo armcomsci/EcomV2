@@ -15,8 +15,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/','IndexController@index');
 Route::get('/OrderProcess','IndexController@orderMethod');
+Route::get('/SpecialProduct','IndexController@special');
 Route::get('/Customization','IndexController@Customization');
 Route::get('/Contact','IndexController@contact');
+Route::get('/Certifications', function(){
+    return view("certifications");
+});
+Route::get('/Security',function(){
+    return view("security");
+});
+Route::get('Privacy&Policy',function(){
+    return view("privacy");
+});
+Route::get('TermsAndConditions',function(){
+    return view('TermsAndConditions');
+});
 
 Route::get('/Product','ProductController@productAll');
 Route::get('/Product/{cate}','ProductController@productCate');
@@ -56,5 +69,13 @@ Route::post('/SaveBillAddr','AddressController@saveBill');
 Route::get('/Login','LoginController@login');
 Route::get('/Logout','LoginController@logout');
 Route::post('/Checklogin','LoginController@checkLogin');
-Route::get('/google/login','LoginController@googleLogin');
-Route::get('/google/callback','LoginController@googleCallback');
+Route::get('login/google','LoginController@googleLogin');
+Route::get('login/google/callback','LoginController@googleCallback');
+Route::get('login/facebook','LoginController@facebookLogin');
+Route::get('login/facebook/callback','LoginController@facebookCallback');
+Route::get('login/line','LoginController@lineLogin');
+Route::get('login/line/callback','LoginController@lineCallback');
+Route::get('/ForgetUser','LoginController@forget');
+Route::post('/ResetPassWord','LoginController@resetPass');
+Route::get('/Reset','LoginController@reset');
+Route::post('/ChangePass','LoginController@ChagePass');

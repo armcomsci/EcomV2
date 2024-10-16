@@ -22,6 +22,10 @@ function Get_header_category($id = null){
     return $category;
 }
 
+function convertInchToCm($inches) {
+    $cm = $inches * 2.54;
+    return number_format($cm, 2); // Formats to 2 decimal places
+}
 
 function DateThai($strDate,$ShowTime = true){
     $strYear = date("Y",strtotime($strDate))+543;

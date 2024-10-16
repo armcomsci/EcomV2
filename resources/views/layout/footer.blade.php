@@ -44,10 +44,10 @@
                     <div class="widget-footer mt-40">
                         <h6 class="title-widget">Information</h6>
                         <ul class="footer-list">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Quick Contact</a></li>
-                            <li><a href="#">Blog Pages</a></li>
+                            <li><a href="{{ url('/Certifications') }}">มาตรฐานการรับรอง</a></li>
+                            <li><a href="{{ url('/Security') }}">นโยบายคุ้มครองข้อมูล</a></li>
+                            <li><a href="{{ url('/Privacy&Policy') }}">นโยบายความเป็นส่วนตัว</a></li>
+                            <li><a href="{{ url('/TermsAndConditions') }}">เงื่อนไข และข้อจำกัดในการบริการ</a></li>
                             <li><a href="#">Concord History</a></li>
                             <li><a href="#">Client Feed</a></li>
                         </ul>

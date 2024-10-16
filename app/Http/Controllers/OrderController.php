@@ -349,12 +349,13 @@ class OrderController extends Controller
             $token          = env('GB_TOKEN'); // Add your token here
             $tokenKey       = rawurlencode($token);
             $referenceNo    = $IdOrder; // Add your reference number here
-            $field = 'token='.$tokenKey.'&referenceNo='.$referenceNo.'&amount='.$Price.'';
+            $backgroundUrl  = url('/GB/Callback/BG');
+            $field          = 'token='.$tokenKey.'&referenceNo='.$referenceNo.'&amount='.$Price.'&backgroundUrl='.$backgroundUrl;
             $requestHeaders = [
                 'Cache-Control' => 'no-cache',
             ];
             $url = env('GB_url') . 'v3/qrcode';
-
+ 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_POST, 1);
@@ -491,7 +492,6 @@ class OrderController extends Controller
 
         $orderId    = $req->orderId;
         $file_name  = date("d_m_Y")."_"."GB_Log.txt";
-        $order_id   = $id;
        
         if (Storage::disk('local')->exists($file_name)) {
             $txFile = trim(Storage::disk('local')->get($file_name));

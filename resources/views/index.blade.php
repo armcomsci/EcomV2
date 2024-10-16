@@ -69,39 +69,53 @@
 <div class="our-customer-support section-pt-30">
     <div class="container-ext">
         <div class="row row-8">
-            <div class="custom-col-service col-md-4">
+            <div class="col-md-2 col-sm-6">
                 <!-- Single Support Start-->
-                <div class="single-support mt-30">
-                    <img src="{{ asset('assets/img_custom/หมวดธุรกิจร้านกาแฟ.jpg') }}" alt="">        
+                <div class="single-support mt-15">
+                    <img src="{{ asset('assets/img_custom/หมวดต่างๆ018_1.jpg') }}" style="width: 100%; height: 200px;" alt="">      
+                    
                 </div>
+                <h4 class="text-center mt-3">เครื่องดื่ม</h4>  
                 <!-- Single Support End-->
             </div>
-            <div class="custom-col-service col-md-4">
+            <div class="col-md-2 col-sm-6">
                 <!-- Single Support Start-->
-                <div class="single-support mt-30">
-                    <img src="{{ asset('assets/img_custom/หมวดธุรกิจร้านอาหาร.jpg') }}" alt="">   
+                <div class="single-support mt-15">
+                    <img src="{{ asset('assets/img_custom/หมวดต่างๆ019_1.jpg') }}" style="width: 100%; height: 200px;"  alt="">   
                 </div>
+                <h4 class="text-center mt-3">เครื่องดื่ม</h4> 
                 <!-- Single Support End-->
             </div>
-            <div class="custom-col-service col-md-4">
+            <div class="col-md-2 col-sm-6">
                 <!-- Single Support Start-->
-                <div class="single-support mt-30">
-                    <img src="{{ asset('assets/img_custom/หมวดธุรกิจ-โรงเเรม.jpg') }}" alt="">
+                <div class="single-support mt-15">
+                    <img src="{{ asset('assets/img_custom/หมวดต่างๆ020_1.jpg') }}" style="width: 100%; height: 200px;"  alt="">
                 </div>
+                <h4 class="text-center mt-3">กล่องข้าวพลาสติก ช้อน ส้อม กระปุกน้ำจิ้ม</h4> 
                 <!-- Single Support End-->
             </div>
-            <div class="custom-col-service col-md-4">
+            <div class="col-md-2 col-sm-6">
                 <!-- Single Support Start-->
-                <div class="single-support mt-30">
-                    <img src="{{ asset('assets/img_custom/หมวดธุรกิจ-โรงพยาบาล.jpg') }}" alt="">
+                <div class="single-support mt-15">
+                    <img src="{{ asset('assets/img_custom/หมวดต่างๆ021_1.jpg') }}" style="width: 100%; height: 200px;"  alt="">
                 </div>
+                <h4 class="text-center mt-3">ผลิตภัณฑ์จากกระดาษ</h4> 
                 <!-- Single Support End-->
             </div>
-            <div class="custom-col-service col-md-4">
+            <div class="col-md-2 col-sm-6">
                 <!-- Single Support Start-->
-                <div class="single-support mt-30">
-                    <img src="{{ asset('assets/img_custom/หมวดธุรกิจ-เลี้ยงสัมนา.jpg') }}" alt="">
+                <div class="single-support mt-15">
+                    <img src="{{ asset('assets/img_custom/หมวดต่างๆ023_1.jpg') }}" style="width: 100%; height: 200px;"  alt="">
                 </div>
+                <h4 class="text-center mt-3">ถุงพลาสติก</h4> 
+                <!-- Single Support End-->
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <!-- Single Support Start-->
+                <div class="single-support mt-15">
+                    <img src="{{ asset('assets/img_custom/หมวดต่างๆ022_1.jpg') }}" style="width: 100%; height: 200px;"  alt="">
+                </div>
+                <h4 class="text-center mt-3">ฟิล์มถนอมอาหาร</h4> 
                 <!-- Single Support End-->
             </div>
         </div>
@@ -128,7 +142,7 @@
 @endif
 
 <!-- Flash Sale -->
-<div class="product-area section-pt-30">
+{{-- <div class="product-area section-pt-30">
     <div class="container-ext">
         <div class="row">
             <div class="col-lg-12">
@@ -427,7 +441,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- Flash Sale -->
 
 <!-- Product Tab 1 -->

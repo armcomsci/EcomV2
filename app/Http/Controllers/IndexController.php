@@ -68,19 +68,13 @@ class IndexController extends ProductController
         return view('orderMethod');
     }
 
+    public function special(){
+        return view('special');
+    }
+
     public function Customization(){
-        $cus   = DB::table('91W2_pmslides')
-                ->join('91W2_files','91W2_pmslides.file_id','=','91W2_files.id')
-                ->select('91W2_files.path','91W2_pmslides.link')
-                ->where('91W2_pmslides.slider_id','=',44)
-                ->get();
-
-        $page = DB::table('91W2_def_page_fields')
-                ->where('id','=',43)
-                ->where('lang_code','=','th')
-                ->get();
-
-        return view('customization',compact('cus','page'));
+      
+        return view('customization');
     }
 
     public function contact(){

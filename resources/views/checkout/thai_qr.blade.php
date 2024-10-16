@@ -43,7 +43,16 @@
                 data: { 'orderId' : idOrder },
                 // dataType: "dataType",
                 success: function (response) {
-                    
+                    if(response == "pay success"){
+                        Swal.fire({
+                            title: 'ชำระเงินเสร็จสิ้น',
+                            text: '',
+                            icon: 'success',
+                            padding: '2em'
+                        }).then((result) => {
+                             window.location.href = url+"/Profile"
+                        });
+                    }
                 }
             });
         }

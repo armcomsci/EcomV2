@@ -18,7 +18,9 @@
 
 <div class="product-area section-ptb">
     <div class="container-ext">
-        <img src="{{ asset('assets/img_custom/6ขั้นตอนการสั่งซื้อสินค้า.jpg') }}" alt="">
+        <img src="{{ asset('assets/img_custom/Art-work-วิธีสั่งซื้อ001_0.jpg') }}" alt="">
+
+        <img src="{{ asset('assets/img_custom/Art-work-วิธีสั่งซื้อ002_0.jpg') }}" alt="">
     </div>
 </div>
 @endsection

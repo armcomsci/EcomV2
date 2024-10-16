@@ -61,7 +61,7 @@
                         <div class="search-box-inner-wrap">
                             <form class="search-box-inner border-2">
                                 <div class="search-select-box">
-                                    <select class="nice-select">
+                                    {{-- <select class="nice-select">
                                         <optgroup label="organic food">
                                             <option value="volvo">All</option>
                                             <option value="saab">watch</option>
@@ -78,7 +78,7 @@
                                             <option value="audi">Watch</option>
                                             <option value="audi">Handbag</option>
                                         </optgroup>
-                                    </select>
+                                    </select> --}}
                                 </div>
                                 <div class="search-field-wrap">
                                     <input type="text" class="search-field" placeholder="Search product...">
@@ -196,9 +196,9 @@
                             <ul>
                                 <li><a href="{{ url('/') }}">หน้าหลัก</a></li>
                                 <li><a href="{{ url('/Product') }}">สินค้าทั้งหมด</a></li>
+                                <li><a href="{{ url('/SpecialProduct') }}">สินค้าราคาพิเศษ</a></li>
                                 <li><a href="{{ url('/OrderProcess') }}">วิธีสั่งซื้อ</a></li>
-                                <li><a href="{{ url('/') }}">เทรนด์ฮิต</a></li>
-                                <li><a href="{{ url('/Customization') }}">ออกแบบงานพิมพ์ LOGO</a></li>
+                                <li><a href="{{ url('/Customization') }}">ออกแบบโลโก้</a></li>
                                 <li><a href="{{ url('/Contact') }}">ติดต่อเรา</a></li>
                             </ul>
                         </nav>

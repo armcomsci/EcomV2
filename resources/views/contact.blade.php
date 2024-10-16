@@ -30,8 +30,8 @@
                             <ul>
                                 <li>
                                     <div class="contact-title">
-                                        <i class="fa fa-home"></i>
-                                        <h4>Address</h4>
+                                        <img src="{{ asset('assets/images/icon/location-pin.png') }}"  style="width: 40px;height: 40px;">
+                                        <h4 style="margin-left:10px;">Address</h4>
                                     </div>
                                     <p>J.T. Pack of Foods Co.,Ltd. <br> 
                                         75/75 ม.5 ซอยทองคำ 3 ถนนจันทร์ทองเอี่ยม
@@ -39,17 +39,24 @@
                                 </li>
                                 <li>
                                     <div class="contact-title">
-                                        <i class="fa fa-envelope-open-o"></i>
-                                        <h4>Phone</h4>
+                                        <img src="{{ asset('assets/images/icon/phone-call.png') }}"  style="width: 40px;height: 40px;">
+                                        <h4 style="margin-left:10px;">Phone</h4>
                                     </div>
                                     <p>Call Center : <a href="tel:02-033-7900">02-033-7900 กด 5</a></p>
                                 </li>
                                 <li>
                                     <div class="contact-title">
-                                        <i class="fa fa-phone"></i>
-                                        <h4>Email</h4>
+                                        <img src="{{ asset('assets/images/icon/gmail.png') }}"  style="width: 40px;height: 40px;">
+                                        <h4 style="margin-left:10px;">Email</h4>
                                     </div>
-                                    <p>Jtpackoffoods@Gmail.Com</p>
+                                    <p><a href="mail:Jtpackoffoods@Gmail.Com">Jtpackoffoods@Gmail.Com</a></p>
+                                </li>
+                                <li>
+                                    <div class="contact-title">
+                                        <a href="https://lin.ee/YLT7EyB" target="_blank"><img src="{{ asset('assets/images/icon/LINE_Brand_icon.png') }}"  style="width: 40px;height: 40px;"></a>
+                                        <h4 style="margin-left:10px;">Line OA</h4>
+                                    </div>
+                                    <p><a href="https://lin.ee/YLT7EyB" target="_blank">@jtpackofficial</a></p>
                                 </li>
                             </ul>
                         </div>

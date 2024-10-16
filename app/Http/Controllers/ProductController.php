@@ -67,6 +67,10 @@ class ProductController extends Controller
                                 ->where('91W2_firesale_products.product_special_flag','N')
                                 ->where('91W2_firesale_products.title',$detail)
                                 ->first();
+        
+        $productSpec    = DB::table('91W2_Product_Spec')
+                            ->where('product_code',$product->code)
+                            ->first();
 
         $titleCate      = DB::table('91W2_firesale_categories as categories')
                             ->selectRaw("(select title from  91W2_firesale_categories where id = categories.parent ) as CateTitle, categories.parent")
@@ -82,7 +86,7 @@ class ProductController extends Controller
                                 ->limit(12)
                                 ->get();
 
-        return view('product.productDetail',compact('product','detail','titleCate','related'));
+        return view('product.productDetail',compact('product','detail','titleCate','related','productSpec'));
     }
 
     public function addToCart(Request $req){
